@@ -116,7 +116,7 @@ class RegistrationForm extends Component {
     } = this.state;
     try {
       const response = await fetch(
-        'https://localhost:44333/api/account/register',
+        'https://localhost:44333/api/accounts/register',
         {
           method: 'POST',
           headers: {
@@ -133,21 +133,22 @@ class RegistrationForm extends Component {
       );
       const backendResponse = await response.json();
       console.log(backendResponse);
-      if (backendResponse.status === 'Error') swal(backendResponse.message);
 
-      switch (backendResponse.message) {
-        case 'User already exists':
-          swal(backendResponse.message, 'Proceed to Login', 'warning');
-         // alert(backendResponse.message);
-          this.props.history.push('/login');
-          break;
-        case 'You have successfully registered':
-          swal(backendResponse.message, 'Success', 'success');
-          setTimeout(() => this.props.history.push('/admin/index'), 2000);
-          break;
-        default:
-          swal(backendResponse.message);
-          break;
+      if (backendResponse.success) {
+        swal(backendResponse.message, 'Success', 'success');
+        setTimeout(() => this.props.history.push('/admin/index'), 2000);
+      } else {
+        swal(backendResponse.message);
+        switch (backendResponse.message) {
+          case 'That user already exists':
+            swal(backendResponse.message, 'Proceed to Login', 'warning');
+            this.props.history.push('/login');
+            break;
+
+          default:
+            swal(backendResponse.message);
+            break;
+        }
       }
     } catch (error) {
       swal(error.message, 'Something happened!', 'error');

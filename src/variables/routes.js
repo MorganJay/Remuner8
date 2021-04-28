@@ -7,7 +7,7 @@ import Payroll from 'pages/Dashboard/Payroll';
 import Leaves from 'pages/Dashboard/Leaves';
 import Overtime from 'pages/Dashboard/Overtime';
 import Timesheet from 'pages/Dashboard/Timesheet';
-import JobDescription from 'pages/Dashboard/JobDescription'
+import JobDescription from 'pages/Dashboard/JobDescription';
 
 import Custom404 from 'pages/404';
 
