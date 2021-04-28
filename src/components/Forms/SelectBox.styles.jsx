@@ -15,7 +15,7 @@ const getLineHeight = props =>
   props.focusLabel
     ? labelStyles
     : css`
-        line-height: 35px;
+        line-height: 33px;
       `;
 
 export const Select = styled.select`

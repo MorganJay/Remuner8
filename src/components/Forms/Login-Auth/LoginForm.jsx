@@ -76,13 +76,13 @@ class LoginForm extends Component {
       console.log(backendResponse);
       if (backendResponse.success) {
         swal(backendResponse.message, 'success');
-        setTimeout(() => this.props.history.push('/admin/index'), 2000);
+        setTimeout(() => this.props.history.replace('/admin/index'), 2000);
       } else {
         this.setState({ loading: false }, () => swal(backendResponse.message));
       }
     } catch (error) {
       this.setState({ loading: false }, () =>
-        swal(error.message, 'Something happened!', 'error')
+        swal(error.message, 'It appears you are offline', 'error')
       );
       console.log(error);
     }

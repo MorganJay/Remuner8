@@ -32,8 +32,6 @@ const Table = ({
 
 Table.propTypes = {
   columns: PropTypes.array.isRequired,
-  sortColumn: PropTypes.object.isRequired,
-  onSort: PropTypes.func.isRequired,
   headerData: PropTypes.array.isRequired,
   bodyData: PropTypes.array.isRequired
 };

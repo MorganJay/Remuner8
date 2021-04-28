@@ -74,7 +74,7 @@ class EmployeeTable extends Component {
   };
 
   render() {
-    const { loading, data } = this.props;
+    const { loading, data, table } = this.props;
 
     if (loading) return <LoaderRing />;
 
@@ -91,23 +91,25 @@ class EmployeeTable extends Component {
           sortColumn={sortColumn}
           onSort={this.handleSort}
         />
-        <Row className="align-items-baseline justify-content-lg-between mt-4">
-          <TableInfo
-            start={start}
-            end={totalCount < 10 ? totalCount : end}
-            total={totalCount}
-          />
-          <Pagination
-            itemsCount={totalCount}
-            pageSize={pageSize}
-            onPageChange={this.handlePageChange}
-            currentPage={currentPage}
-            onPageSizeChange={this.handlePageSizeChange}
-            onPrevious={this.handlePrevious}
-            onNext={this.handleNext}
-          />
-          <SelectTableLength togglePageSize={this.handlePageSizeChange} />
-        </Row>
+        {!table && (
+          <Row className="align-items-baseline justify-content-lg-between mt-4">
+            <TableInfo
+              start={start}
+              end={totalCount < 10 ? totalCount : end}
+              total={totalCount}
+            />
+            <Pagination
+              itemsCount={totalCount}
+              pageSize={pageSize}
+              onPageChange={this.handlePageChange}
+              currentPage={currentPage}
+              onPageSizeChange={this.handlePageSizeChange}
+              onPrevious={this.handlePrevious}
+              onNext={this.handleNext}
+            />
+            <SelectTableLength togglePageSize={this.handlePageSizeChange} />
+          </Row>
+        )}
       </div>
     );
   }

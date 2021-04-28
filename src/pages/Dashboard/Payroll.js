@@ -22,9 +22,7 @@ class Payroll extends Component {
   toggleAddModal = () =>
     this.setState({ addModalOpen: !this.state.addModalOpen });
 
-  toggleEditModal = () => {
-    this.setState({ editModalOpen: !this.state.editModalOpen });
-  };
+  toggleEditModal = () => this.setState({ editModalOpen: !this.state.editModalOpen });
 
   toggleDeleteModal = () =>
     this.setState({ deleteModalOpen: !this.state.deleteModalOpen });

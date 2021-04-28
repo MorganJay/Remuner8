@@ -19,7 +19,7 @@ const EmployeeCard = props => {
   }, []);
 
   const { loading, employees } = state;
-  console.log(state);
+
   const slicedEmployees = !loading ? employees.slice(0, 5) : null;
 
   return (
@@ -43,7 +43,7 @@ const EmployeeCard = props => {
             </Col>
           </Row>
         </CardHeader>
-        <EmployeeTable loading={loading} data={slicedEmployees} />
+        <EmployeeTable loading={loading} data={slicedEmployees} table />
       </Card>
     </>
   );
