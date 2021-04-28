@@ -23,7 +23,7 @@ const Login = () => (
                   </Link>
                 </div>
                 <Row className="justify-content-center">
-                  <Col xs={11} sm={10} md={10} lg={10}>
+                  <Col xs={11} sm={10}>
                     <LoginForm />
                   </Col>
                 </Row>

@@ -13,10 +13,9 @@ import { Link, withRouter } from 'react-router-dom';
 import 'assets/scss/forms.styles.scss';
 
 class LoginForm extends Component {
-  static displayName = LoginForm.name;
   constructor(props) {
     super(props);
-
+    
     this.state = {
       email: '',
       password: '',
