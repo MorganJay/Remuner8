@@ -11,7 +11,8 @@ import { MainContent } from 'components/Dashboard/MainContent';
 import Remuner8Logo from 'assets/img/brand/profile3.png';
 // Sidebar menu items
 import routes from 'variables/routes';
-import Custom404 from 'pages/404';
+
+import EmployeeProfile from 'pages/Dashboard/EmployeeProfile';
 
 
 const Dashboard = props => {
@@ -83,7 +84,7 @@ const Dashboard = props => {
           {getRoutes(hrRoutes)}
           {getRoutes(administrationRoutes)}
           <Redirect exact from="/admin" to="/admin/index" />
-          <Route path="/admin/employee-profile" component={Custom404} />
+          <Route path="/admin/employee/profile" component={EmployeeProfile} />
         </Switch>
         <Container fluid>
           <AdminFooter />

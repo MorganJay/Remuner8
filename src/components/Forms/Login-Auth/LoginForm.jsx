@@ -58,7 +58,7 @@ class LoginForm extends Component {
     this.setState({ loading: !loading });
     try {
       const response = await fetch(
-        'https://localhost:44333/api/account/login',
+        'https://localhost:44333/api/accounts/login',
         {
           method: 'POST',
           headers: {
@@ -73,7 +73,7 @@ class LoginForm extends Component {
       );
       const backendResponse = await response.json();
       console.log(backendResponse);
-      if (backendResponse.status === 'Success') {
+      if (backendResponse.success) {
         swal(backendResponse.message, 'success');
         setTimeout(() => this.props.history.replace('/admin/index'), 2000);
       } else {
