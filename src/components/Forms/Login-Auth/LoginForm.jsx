@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import swal from '@sweetalert/with-react';
 import {
   Button,
@@ -8,27 +9,24 @@ import {
   Input,
   Label
 } from 'reactstrap';
-import { Link, withRouter } from 'react-router-dom';
+
+import Modal from 'services/modalService';
 
 import 'assets/scss/forms.styles.scss';
 
 class LoginForm extends Component {
-  constructor(props) {
-    super(props);
-    
-    this.state = {
-      email: '',
+  state = {
+    email: '',
+    password: '',
+    validate: {
+      emailState: '',
+      isValid: false,
       password: '',
-      validate: {
-        emailState: '',
-        isValid: false,
-        password: '',
-        isValidPassword: false
-      },
-      showPassword: false,
-      loading: false
-    };
-  }
+      isValidPassword: false
+    },
+    showPassword: false,
+    loading: false
+  };
 
   togglePassword = () => {
     const { showPassword } = this.state;
@@ -80,9 +78,10 @@ class LoginForm extends Component {
         this.setState({ loading: false }, () => swal(backendResponse.message));
       }
     } catch (error) {
-      this.setState({ loading: false }, () =>
-        swal(error.message, 'It appears you are offline', 'error')
-      );
+      this.setState({ loading: false });
+
+      Modal.error(error.message, 'It appears you are offline');
+
       console.log(error);
     }
   };

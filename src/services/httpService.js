@@ -1,7 +1,8 @@
 import axios from 'axios';
-import swal from '@sweetalert/with-react'
+import swal from './modalService';
 import logger from './logService';
 
+axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 axios.interceptors.response.use(null, error => {
   const expectedError =

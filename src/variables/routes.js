@@ -8,12 +8,7 @@ import Leaves from 'pages/Dashboard/Leaves';
 import Overtime from 'pages/Dashboard/Overtime';
 import Timesheet from 'pages/Dashboard/Timesheet';
 import JobDescription from 'pages/Dashboard/JobDescription';
-<<<<<<< HEAD
-
-import Custom404 from 'pages/404';
-=======
 import PayrollItems from 'pages/Dashboard/PayrollItems';
->>>>>>> 0d501b3472c239272761078555208b401eabea88
 
 const routes = [
   [

@@ -1,18 +1,20 @@
 import React, { useRef, useEffect } from 'react';
 import { useLocation, Route, Switch, Redirect } from 'react-router-dom';
-// reactstrap components
 import { Container } from 'reactstrap';
+
 // core components
 import AdminNavbar from 'components/Navbars/AdminNavbar';
 import AdminFooter from 'components/Footers/AdminFooter';
 import Sidebar from 'components/Sidebar/Sidebar';
 import { MainContent } from 'components/Dashboard/MainContent';
+import EmployeeProfile from 'pages/Dashboard/EmployeeProfile';
+import Custom404 from 'pages/404';
+
 // Anon image
 import Remuner8Logo from 'assets/img/brand/profile3.png';
 // Sidebar menu items
 import routes from 'variables/routes';
 
-import EmployeeProfile from 'pages/Dashboard/EmployeeProfile';
 
 
 const Dashboard = props => {
@@ -85,6 +87,8 @@ const Dashboard = props => {
           {getRoutes(administrationRoutes)}
           <Redirect exact from="/admin" to="/admin/index" />
           <Route path="/admin/employee/profile" component={EmployeeProfile} />
+          <Route path="/not-found" component={Custom404} />
+          <Redirect to="/not-found" />
         </Switch>
         <Container fluid>
           <AdminFooter />
