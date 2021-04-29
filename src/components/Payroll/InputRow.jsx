@@ -2,9 +2,9 @@ import React from 'react';
 import { Row, Col, FormGroup } from 'reactstrap';
 
 import CustomButton from 'components/Custom-Buttons/Button';
-import FormInput from 'components/Forms/Input';
-import SelectBox from 'components/Forms/SelectBox';
-import DatePicker from 'components/Forms/DatePicker';
+import FloatingInput from 'components/Forms/Common/FloatingInput';
+import SelectBox from 'components/Forms/Common/SelectBox';
+import DatePicker from 'components/Forms/Common/DatePicker';
 
 const options = ['Pending', 'Approved', 'Rejected'];
 const roleOptions = ['Employee', 'Manager'];
@@ -12,9 +12,8 @@ const roleOptions = ['Employee', 'Manager'];
 const InputRow = () => {
   return (
     <Row className="mb-3">
-
       <Col xs={12} sm={6} md={3} lg={4} xl={2}>
-        <FormInput label="Employee Name" type="text" />
+        <FloatingInput label="Employee Name" type="text" />
       </Col>
 
       <Col xs={12} sm={6} md={3} lg={4} xl={2}>

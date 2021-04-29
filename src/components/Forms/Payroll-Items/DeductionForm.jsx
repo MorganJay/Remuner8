@@ -8,8 +8,7 @@ import {
   InputGroupAddon,
   Button
 } from 'reactstrap';
-import SelectBox from '../SelectBox';
-
+import SelectBox from '../Common/SelectBox';
 
 const employees = ['John Doe', 'Woro Master'];
 

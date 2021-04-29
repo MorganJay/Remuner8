@@ -1,8 +1,8 @@
 import React from 'react';
 import { FormGroup, Input } from 'reactstrap';
-import CustomForm from 'components/Forms/CustomForm';
-import DatePicker from '../DatePicker';
-import SelectBox from '../SelectBox';
+import CustomForm from '../Common/CustomForm';
+import DatePicker from '../Common/DatePicker';
+import SelectBox from '../Common/SelectBox';
 import EmptyForm from './EmptyForm';
 
 const leaveTypes = ['Select Leave Type', 'Casual Leave 12 days'];
@@ -61,7 +61,7 @@ const LeaveForm = ({ data, toggle }) => {
           </>
         ))
       ) : (
-        <EmptyForm  leaveTypes={leaveTypes}/>
+        <EmptyForm leaveTypes={leaveTypes} />
       )}
     </CustomForm>
   );

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Input } from 'reactstrap';
 import dateFormat from 'dateformat';
-import { FocusLabel } from 'components/Forms/SelectBox.styles';
+import { FocusLabel } from 'components/Forms/Common/SelectBox.styles';
 
 const getValidDate = date => dateFormat(date, 'yyyy-mm-dd');
 

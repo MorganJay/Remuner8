@@ -1,9 +1,9 @@
 import React from 'react';
 import { Col, FormGroup, Input } from 'reactstrap';
-import SelectBox from '../SelectBox';
-import CustomForm from 'components/Forms/CustomForm';
+import CustomForm from '../Common/CustomForm';
+import SelectBox from '../Common/SelectBox';
+import DatePicker from '../Common/DatePicker';
 import EmptyForm from './EmptyForm';
-import DatePicker from '../DatePicker';
 
 const departmentOptions = [
   'Select Department',

@@ -18,10 +18,20 @@ axios.interceptors.response.use(null, error => {
   return Promise.reject(error);
 });
 
+export function expectedError(error, statusCode) {
+  return error.response && error.response.status === statusCode;
+}
+
+export function setJwt(jwt) {
+  axios.defaults.headers.common['x-auth-token'] = jwt;
+}
+
 export default {
   get: axios.get,
   post: axios.post,
   put: axios.put,
   patch: axios.patch,
-  delete: axios.delete
+  delete: axios.delete,
+  setJwt,
+  expectedError
 };

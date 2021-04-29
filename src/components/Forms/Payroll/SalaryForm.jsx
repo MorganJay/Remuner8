@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col, FormGroup, Input, Label, Form, Row, Button } from 'reactstrap';
-import SelectBox from '../SelectBox';
+import SelectBox from '../Common/SelectBox';
 import EmptyForm from './EmptyForm.jsx';
 
 const employees = ['John Doe', 'Woro Master'];
@@ -35,20 +35,12 @@ const SalaryForm = ({ data, toggle }) => {
                 <h4 className="text-primary">Earnings</h4>
                 <FormGroup>
                   <Label>Basic</Label>
-                  <Input
-                    type="text"
-                    defaultValue={employee.basic}
-                    required
-                  />
+                  <Input type="text" defaultValue={employee.basic} required />
                 </FormGroup>
 
                 <FormGroup>
                   <Label>Housing</Label>
-                  <Input
-                    type="text"
-                    defaultValue={employee.housing}
-                    required
-                  />
+                  <Input type="text" defaultValue={employee.housing} required />
                 </FormGroup>
 
                 <FormGroup>
@@ -62,11 +54,7 @@ const SalaryForm = ({ data, toggle }) => {
 
                 <FormGroup>
                   <Label>Medical Allowance</Label>
-                  <Input
-                    type="text"
-                    defaultValue={employee.medical}
-                    required
-                  />
+                  <Input type="text" defaultValue={employee.medical} required />
                 </FormGroup>
 
                 <FormGroup>

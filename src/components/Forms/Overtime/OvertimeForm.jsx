@@ -1,8 +1,8 @@
 import React from 'react';
 import { FormGroup, Input } from 'reactstrap';
-import CustomForm from 'components/Forms/CustomForm';
-import DatePicker from '../DatePicker';
-import SelectBox from '../SelectBox';
+import CustomForm from 'components/Forms/Common/CustomForm';
+import DatePicker from '../Common/DatePicker';
+import SelectBox from '../Common/SelectBox';
 import EmptyForm from './EmptyForm';
 
 const employees = ['John Doe', 'Woro Master'];

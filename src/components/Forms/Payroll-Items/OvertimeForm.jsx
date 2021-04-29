@@ -1,6 +1,6 @@
 import React from 'react';
 import { Form, FormGroup, Input, Label, Button } from 'reactstrap';
-import SelectBox from '../SelectBox';
+import SelectBox from '../Common/SelectBox';
 
 const rates = ['Daily Rate', 'Hourly Rate'];
 
@@ -35,7 +35,7 @@ const OvertimeForm = ({ data, toggle }) => {
         <Label className="d-block">
           Rate <span className="text-danger">*</span>
         </Label>
-        <Input type="text" defaultValue={data && data[0].rate}  required />
+        <Input type="text" defaultValue={data && data[0].rate} required />
       </FormGroup>
 
       <div className="submit-section text-center mt-4">

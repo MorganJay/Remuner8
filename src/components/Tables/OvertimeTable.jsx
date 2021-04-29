@@ -8,7 +8,7 @@ import Table from 'components/Tables/Table';
 import TableInfo from 'components/Tables/TableInfo';
 import Pagination from 'components/Tables/Pagination';
 import ActionToggle from 'components/Custom-Buttons/ActionToggle';
-import OvertimeStatusButton from 'components/Forms/OvertimeStatusButton';
+import OvertimeStatusButton from 'components/Forms/Overtime/OvertimeStatusButton';
 import SelectTableLength from './SelectTableLength';
 
 class OvertimeTable extends Component {

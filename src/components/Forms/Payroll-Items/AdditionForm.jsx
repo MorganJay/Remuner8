@@ -8,7 +8,7 @@ import {
   InputGroupAddon,
   Button
 } from 'reactstrap';
-import SelectBox from '../SelectBox';
+import SelectBox from '../Common/SelectBox';
 
 const categories = ['Monthly remuneration', 'Additional Remuneration'];
 
@@ -20,7 +20,8 @@ const AdditionForm = ({ data, toggle }) => {
     toggle();
   };
 
-  const getParsedAmount = amount => amount && amount.replace(",", "").split('.')[0];
+  const getParsedAmount = amount =>
+    amount && amount.replace(',', '').split('.')[0];
 
   return (
     <Form onSubmit={handleSubmit}>

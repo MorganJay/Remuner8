@@ -1,7 +1,7 @@
 import React from 'react';
 import { Col, FormGroup, Input } from 'reactstrap';
-import SelectBox from '../SelectBox';
-import DatePicker from '../DatePicker';
+import SelectBox from '../Common/SelectBox';
+import DatePicker from '../Common/DatePicker';
 
 const EmptyForm = props => {
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col, FormGroup, Input } from 'reactstrap';
-import CustomForm from 'components/Forms/CustomForm';
+import CustomForm from '../Common/CustomForm';
 
 const DepartmentForm = ({ data, toggle }) => {
   const handleSubmit = e => {

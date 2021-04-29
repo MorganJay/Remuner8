@@ -1,7 +1,7 @@
 import React from 'react';
 import { Col, FormGroup, Input } from 'reactstrap';
-import SelectBox from '../SelectBox';
-import CustomForm from 'components/Forms/CustomForm';
+import CustomForm from '../Common/CustomForm';
+import SelectBox from '../Common/SelectBox';
 import EmptyForm from './EmptyForm';
 
 const departmentOptions = [
@@ -46,7 +46,7 @@ const JobsForm = ({ data, toggle }) => {
           </>
         ))
       ) : (
-        <EmptyForm departments={departmentOptions}/>
+        <EmptyForm departments={departmentOptions} />
       )}
     </CustomForm>
   );

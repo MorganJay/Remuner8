@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col, FormGroup, Input } from 'reactstrap';
-import SelectBox from '../SelectBox';
+import SelectBox from '../Common/SelectBox';
 
 const EmptyForm = ({ departments }) => {
   return (
@@ -10,7 +10,7 @@ const EmptyForm = ({ departments }) => {
           <label for="jobDescription">
             Job Description <span className="text-danger">*</span>
           </label>
-          <Input type="text" name="jobDescriptionName" required/>
+          <Input type="text" name="jobDescriptionName" required />
         </FormGroup>
       </Col>
 
@@ -19,7 +19,12 @@ const EmptyForm = ({ departments }) => {
           <label className="col-form-label" htmlFor="department">
             Department <span className="text-danger">*</span>
           </label>
-          <SelectBox options={departments} name="department" label="Select Department" required/>
+          <SelectBox
+            options={departments}
+            name="department"
+            label="Select Department"
+            required
+          />
         </FormGroup>
       </Col>
     </>

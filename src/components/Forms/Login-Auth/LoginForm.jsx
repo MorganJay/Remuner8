@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import swal from '@sweetalert/with-react';
+import React from 'react';
+import Joi from 'joi-browser';
+import { Link, withRouter, Redirect } from 'react-router-dom';
 import {
   Button,
   Form,
@@ -10,50 +10,62 @@ import {
   Label
 } from 'reactstrap';
 
-import Modal from 'services/modalService';
+import FormComponent from '../Common/FormComponent';
+
+import http from '../../../services/httpService';
+import auth from '../../../services/authService';
+import modal from '../../../services/modalService';
 
 import 'assets/scss/forms.styles.scss';
 
-class LoginForm extends Component {
+class LoginForm extends FormComponent {
   state = {
-    email: '',
-    password: '',
-    validate: {
-      emailState: '',
-      isValid: false,
-      password: '',
-      isValidPassword: false
-    },
-    showPassword: false,
+    data: { email: '', password: '' },
     loading: false
   };
 
-  togglePassword = () => {
-    const { showPassword } = this.state;
-    this.setState({ showPassword: !showPassword });
+  schema = {
+    email: Joi.string()
+      .required()
+      .label('Email Address')
+      .email({ minDomainSegments: 2 }),
+    password: Joi.string()
+      .required()
+      .label('Password')
+      .min(8)
+      .max(32)
+      .regex(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-`~()_=+{}\\|'.<>;:,/]).{8,33}$/)
   };
 
-  handleChange = event => {
-    const { name, value } = event.target;
-    const { validate } = this.state;
-    if (!value) {
-      validate.emailState = '';
-      validate.isValid = false;
-      this.setState({
-        validate,
-        formText: 'Your username is most likely your email address'
-      });
+  //     this.setState({
+  //       validate,
+  //       formText: 'Your username is most likely your email address'
+  //   this.setState({
+  //     [name]: value,
+  //     formText: ''
+  //   });
+  // };
+
+  doSubmit = async () => {
+    try {
+       this.setState({ loading: !this.state.loading });
+       const { username, password } = this.state.data;
+       await auth.login(username, password);
+       const { state } = this.props.location;
+       window.location = state ? state.from.pathname : '/admin';
+    } catch (error) {
+      if (http.expectedError(error, 400)) {
+        const errors = { ...this.state.errors };
+        errors.username = error.response.data;
+        this.setState({ errors });
+      }
+      modal.error(error.response.data);
     }
-    this.setState({
-      [name]: value,
-      formText: ''
-    });
   };
 
   handleSubmit = async e => {
     e.preventDefault();
     const { email, password, loading } = this.state;
-    this.setState({ loading: !loading });
     try {
       const response = await fetch(
         'https://localhost:44333/api/accounts/login',
@@ -72,22 +84,26 @@ class LoginForm extends Component {
       const backendResponse = await response.json();
       console.log(backendResponse);
       if (backendResponse.success) {
-        swal(backendResponse.message, 'success');
+        modal.success(backendResponse.message);
         setTimeout(() => this.props.history.replace('/admin/index'), 2000);
       } else {
-        this.setState({ loading: false }, () => swal(backendResponse.message));
+        this.setState({ loading: false }, () =>
+          modal.warning(backendResponse.message)
+        );
       }
     } catch (error) {
       this.setState({ loading: false });
 
-      Modal.error(error.message, 'It appears you are offline');
+      modal.error(error.message, 'It appears you are offline');
 
       console.log(error);
     }
   };
 
   render() {
-    const { email, validate, password, showPassword, loading } = this.state;
+    const { data, errors, loading } = this.state;
+    
+     if (auth.currentUser) return <Redirect to="/admin" />;
 
     return (
       <>
@@ -103,6 +119,7 @@ class LoginForm extends Component {
               title="Email Address"
               autoComplete="username"
               required
+              placeholder="Email"
               autoFocus
               value={email}
               valid={validate.emailState === 'has-success'}

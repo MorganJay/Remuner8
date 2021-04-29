@@ -16,8 +16,9 @@ function init() {
 }
 
 function log(error) {
-  Sentry.captureException(error);
+  //Sentry.captureException(error);
   console.error(error);
 }
 
 export default { init, log };
+ 

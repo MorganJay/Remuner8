@@ -1,6 +1,6 @@
 import React from 'react';
 import { Col, FormGroup, Input } from 'reactstrap';
-import SelectBox from '../SelectBox';
+import SelectBox from '../Common/SelectBox';
 
 const EmptyForm = ({ employees }) => {
   return (
