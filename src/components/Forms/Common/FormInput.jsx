@@ -7,13 +7,15 @@ const FormInput = ({ name, label, error, ...props }) => {
       <Input
         id={name}
         name={name}
+        placeholder={label}
         title={label}
         className="mb-2"
-        valid={!error}
-        invalid={error}
+        invalid={error && error.length > 0}
         {...props}
       />
-      <Label htmlFor={name}>{label}</Label>
+      <Label htmlFor={name} className="label">
+        {label}
+      </Label>
       {error && <FormFeedback>{error}</FormFeedback>}
     </FormGroup>
   );

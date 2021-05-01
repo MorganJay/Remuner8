@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import swal from '@sweetalert/with-react';
-
 import {
   Label,
   Button,
@@ -27,6 +26,21 @@ class RegistrationForm extends Component {
     showConfirmPassword: false,
     loading: false
   };
+
+  // schema = {
+  //   email: Joi.string()
+  //     .required()
+  //     .label('Email Address')
+  //     .email({ minDomainSegments: 2 }),
+  //   password: Joi.string()
+  //     .required()
+  //     .label('Password')
+  //     .min(8)
+  //     .max(32)
+  //     .regex(
+  //       /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-`~()_=+{}\\|'.<>;:,/]).{8,33}$/
+  //     )
+  // };
 
   togglePassword = () => {
     const { showPassword } = this.state;

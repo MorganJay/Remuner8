@@ -30,7 +30,7 @@ export function getJwt() {
   return localStorage.getItem(tokenKey);
 }
 
-http.setJwt(getJwt());
+//http.setJwt(getJwt());
 const currentUser = getCurrentUser();
 
 export default {

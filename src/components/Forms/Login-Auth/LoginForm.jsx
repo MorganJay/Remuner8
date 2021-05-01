@@ -4,10 +4,10 @@ import { Link, withRouter, Redirect } from 'react-router-dom';
 import {
   Button,
   Form,
-  FormGroup,
-  FormFeedback,
-  Input,
-  Label
+  FormGroup
+  // FormFeedback,
+  // Input,
+  // Label
 } from 'reactstrap';
 
 import FormComponent from '../Common/FormComponent';
@@ -21,89 +21,77 @@ import 'assets/scss/forms.styles.scss';
 class LoginForm extends FormComponent {
   state = {
     data: { email: '', password: '' },
+    errors: {},
     loading: false
   };
 
   schema = {
-    email: Joi.string()
-      .required()
-      .label('Email Address')
-      .email({ minDomainSegments: 2 }),
-    password: Joi.string()
-      .required()
-      .label('Password')
-      .min(8)
-      .max(32)
-      .regex(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-`~()_=+{}\\|'.<>;:,/]).{8,33}$/)
+    email: Joi.string().required().label('Email Address'),
+    password: Joi.string().required().label('Password')
   };
-
-  //     this.setState({
-  //       validate,
-  //       formText: 'Your username is most likely your email address'
-  //   this.setState({
-  //     [name]: value,
-  //     formText: ''
-  //   });
-  // };
 
   doSubmit = async () => {
     try {
-       this.setState({ loading: !this.state.loading });
-       const { username, password } = this.state.data;
-       await auth.login(username, password);
-       const { state } = this.props.location;
-       window.location = state ? state.from.pathname : '/admin';
-    } catch (error) {
-      if (http.expectedError(error, 400)) {
-        const errors = { ...this.state.errors };
-        errors.username = error.response.data;
-        this.setState({ errors });
-      }
-      modal.error(error.response.data);
-    }
-  };
-
-  handleSubmit = async e => {
-    e.preventDefault();
-    const { email, password, loading } = this.state;
-    try {
-      const response = await fetch(
-        'https://localhost:44333/api/accounts/login',
-        {
-          method: 'POST',
-          headers: {
-            Accept: 'application/json',
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            email: email,
-            password: password
-          })
-        }
-      );
-      const backendResponse = await response.json();
-      console.log(backendResponse);
-      if (backendResponse.success) {
-        modal.success(backendResponse.message);
-        setTimeout(() => this.props.history.replace('/admin/index'), 2000);
-      } else {
-        this.setState({ loading: false }, () =>
-          modal.warning(backendResponse.message)
-        );
-      }
+      this.setState({ loading: !this.state.loading });
+      const { email, password } = this.state.data;
+      await auth.login(email, password);
+      const { state } = this.props.location;
+      window.location = state ? state.from.pathname : '/admin';
     } catch (error) {
       this.setState({ loading: false });
-
-      modal.error(error.message, 'It appears you are offline');
-
-      console.log(error);
+      if (!error.response) return;
+      if (http.expectedError(error, 400)) {
+        const errors = { ...this.state.errors };
+        errors.username = error.response.data.errors.pop();
+        this.setState({ errors });
+      }
+      if (http.expectedError(error, 404)) {
+        return modal.error('Failed to fetch', 'Not found');
+      }
+      modal.error(...error.response.data.errors);
     }
   };
 
+  // handleSubmit = async e => {
+  //   e.preventDefault();
+  //   const { email, password, loading } = this.state;
+  //   try {
+  //     const response = await fetch(
+  //       'https://localhost:44333/api/accounts/login',
+  //       {
+  //         method: 'POST',
+  //         headers: {
+  //           Accept: 'application/json',
+  //           'Content-Type': 'application/json'
+  //         },
+  //         body: JSON.stringify({
+  //           email: email,
+  //           password: password
+  //         })
+  //       }
+  //     );
+  //     const backendResponse = await response.json();
+  //     console.log(backendResponse);
+  //     if (backendResponse.success) {
+  //       modal.success(backendResponse.message);
+  //       setTimeout(() => this.props.history.replace('/admin/index'), 2000);
+  //     } else {
+  //       this.setState({ loading: false }, () =>
+  //         modal.warning(backendResponse.message)
+  //       );
+  //     }
+  //   } catch (error) {
+  //     this.setState({ loading: false });
+
+  //     modal.error(error.message, 'It appears you are offline');
+
+  //     console.log(error);
+  //   }
+  // };
+
   render() {
-    const { data, errors, loading } = this.state;
-    
-     if (auth.currentUser) return <Redirect to="/admin" />;
+    if (auth.currentUser) return <Redirect to="/" />;
+    const { loading } = this.state;
 
     return (
       <>
@@ -111,7 +99,9 @@ class LoginForm extends FormComponent {
           Don't have an account yet? <Link to="/register"> Sign Up</Link>
         </p>
         <Form className="login" onSubmit={this.handleSubmit}>
-          <FormGroup>
+          {this.renderInput('email', 'Email Address')}
+          {this.renderPasswordInput('password', 'Password')}
+          {/* <FormGroup>
             <Input
               type="email"
               name="email"
@@ -162,14 +152,14 @@ class LoginForm extends FormComponent {
               Password
             </Label>
             <FormFeedback>Invalid Password</FormFeedback>
-          </FormGroup>
+          </FormGroup> */}
 
           <FormGroup>
             <Button
               type="submit"
               id="sign-in"
               color="primary"
-              className={loading ? 'onload' : null}
+              className={loading ? 'onload' : ''}
               block
             >
               {loading ? (

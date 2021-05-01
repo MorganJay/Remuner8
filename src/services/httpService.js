@@ -12,7 +12,10 @@ axios.interceptors.response.use(null, error => {
 
   if (!expectedError) {
     logger.log(error);
-    swal.error('An unexpected error occurred.');
+    swal.error(
+      'An unexpected error occurred',
+      'Failed to connect to the server.'
+    );
   }
 
   return Promise.reject(error);
@@ -22,9 +25,13 @@ export function expectedError(error, statusCode) {
   return error.response && error.response.status === statusCode;
 }
 
-export function setJwt(jwt) {
-  axios.defaults.headers.common['x-auth-token'] = jwt;
+export function getErrors(errors) {
+  return errors.split();
 }
+
+// export function setJwt(jwt) {
+//   axios.defaults.headers.common['x-auth-token'] = jwt;
+// }
 
 export default {
   get: axios.get,
@@ -32,6 +39,6 @@ export default {
   put: axios.put,
   patch: axios.patch,
   delete: axios.delete,
-  setJwt,
+  // setJwt,
   expectedError
 };

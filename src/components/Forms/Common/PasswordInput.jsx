@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FormGroup, Button, FormFeedback, Input, Label } from 'reactstrap';
 
 const PasswordInput = ({ name, label, error, ...props }) => {
+
   const [showPassword, setShowPassword] = useState(false);
   return (
     <FormGroup>
@@ -26,14 +27,13 @@ const PasswordInput = ({ name, label, error, ...props }) => {
         placeholder={label}
         pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-`~()_=+{}\|'.<>;:,/]).{8,33}$"
         required
-        valid={!error}
-        invalid={error}
+        invalid={error && error.length > 0}
         {...props}
       />
       <Label htmlFor="current-password" className="label">
         {label}
       </Label>
-      {error && <FormFeedback>Invalid Password</FormFeedback>}
+      {error && <FormFeedback>{error}</FormFeedback>}
     </FormGroup>
   );
 };

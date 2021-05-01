@@ -24,7 +24,7 @@ class FormComponent extends Component {
 
     const errors = {};
     for (let item of error.details) errors[item.path[0]] = item.message;
-
+    console.log(errors);
     return errors;
   };
 
