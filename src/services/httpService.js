@@ -12,10 +12,7 @@ axios.interceptors.response.use(null, error => {
 
   if (!expectedError) {
     logger.log(error);
-    swal.error(
-      'An unexpected error occurred',
-      'Failed to connect to the server.'
-    );
+    swal.error('An unexpected error occurred');
   }
 
   return Promise.reject(error);

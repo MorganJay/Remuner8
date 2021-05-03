@@ -1,7 +1,7 @@
 import React from 'react';
 import { FormGroup, Input, Label, FormFeedback } from 'reactstrap';
 
-const FormInput = ({ name, label, error, ...props }) => {
+const FormInput = ({ autoComplete, name, label, error, ...props }) => {
   return (
     <FormGroup>
       <Input
@@ -9,6 +9,7 @@ const FormInput = ({ name, label, error, ...props }) => {
         name={name}
         placeholder={label}
         title={label}
+        autoComplete={autoComplete || 'username'}
         className="mb-2"
         invalid={error && error.length > 0}
         {...props}

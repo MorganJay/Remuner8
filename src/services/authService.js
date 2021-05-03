@@ -3,10 +3,17 @@ import http from './httpService';
 
 const apiEndpoint = '/accounts/login';
 const tokenKey = 'token';
+const userKey = 'Username';
 
 export async function login(email, password) {
-  const { data: jwt } = await http.post(apiEndpoint, { email, password });
-  localStorage.setItem(tokenKey, jwt);
+  const {
+    data: { token, userName }
+  } = await http.post(apiEndpoint, {
+    email,
+    password
+  });
+  localStorage.setItem(tokenKey, token);
+  localStorage.setItem(userKey, userName);
 }
 
 export function loginWithJwt(jwt) {
@@ -20,7 +27,9 @@ export function logout() {
 export function getCurrentUser() {
   try {
     const jwt = localStorage.getItem(tokenKey);
-    return jwtDecode(jwt);
+    const userName = localStorage.getItem(userKey);
+    const user = jwtDecode(jwt)
+    return { ...user, userName };
   } catch (error) {
     return null;
   }
@@ -38,6 +47,5 @@ export default {
   loginWithJwt,
   logout,
   currentUser,
-  getCurrentUser,
   getJwt
 };

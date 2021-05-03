@@ -15,9 +15,6 @@ import RevenueChart from "components/Dashboard/RevenueChart";
 const Index = () => {
 	const { state, events } = useContext(AppContext);
 	console.log(state, events);
-	// uncomment import of AppContext and the two above to
-	// view the states or retrieve reducer functions from the events
-	// the state and events are both objects so you can call their keys to retrieve their value pairs
 
 	const [activeNav, setActiveNav] = useState(1);
 	const [chartExample1Data, setChartExample1Data] = useState("data1");

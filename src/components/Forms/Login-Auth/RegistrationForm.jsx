@@ -221,6 +221,7 @@ class RegistrationForm extends Component {
               name="email"
               type="email"
               placeholder="Email Address"
+              autoComplete="username"
               className={errors.email ? 'has-danger' : null}
               required
               valid={errors.emailState === 'valid' ? true : false}
@@ -292,6 +293,7 @@ class RegistrationForm extends Component {
             <Input
               id="confirmPassword"
               name="confirmPassword"
+              autoComplete="new-password"
               type={showConfirmPassword ? 'text' : 'password'}
               placeholder="confirm"
               required
