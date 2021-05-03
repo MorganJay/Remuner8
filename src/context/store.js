@@ -17,7 +17,9 @@ export const AppProvider = ({ children }) => {
 
   const uploadImage = payload => dispatch({ type: 'UPLOAD_IMAGE', payload });
 
-  const events = { storeToken, uploadImage };
+  const setUsername = payload => dispatch({ type: 'SET_USERNAME', payload});
+
+  const events = { storeToken, uploadImage, setUsername };
 
   return (
     <AppContext.Provider value={{ state, events }}>

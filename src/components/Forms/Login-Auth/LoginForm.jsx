@@ -1,6 +1,6 @@
 import React from 'react';
 import Joi from 'joi-browser';
-import { Link, withRouter, Redirect } from 'react-router-dom';
+import { Link, Redirect, withRouter } from 'react-router-dom';
 import { Button, Form, FormGroup } from 'reactstrap';
 
 import FormComponent from '../Common/FormComponent';
@@ -10,8 +10,11 @@ import auth from '../../../services/authService';
 import modal from '../../../services/modalService';
 
 import 'assets/scss/forms.styles.scss';
+import { AppContext } from './../../../context/store';
 
 class LoginForm extends FormComponent {
+  static contextType = AppContext;
+  currentUser = auth.currentUser;
   state = {
     data: { email: '', password: '' },
     errors: {},
@@ -24,11 +27,13 @@ class LoginForm extends FormComponent {
   };
 
   doSubmit = async () => {
+    const { state } = this.props.location;
+    const { email, password } = this.state.data;
+    const { setUsername } = this.context.events;
     try {
       this.setState({ loading: !this.state.loading });
-      const { email, password } = this.state.data;
-      await auth.login(email, password);
-      const { state } = this.props.location;
+      const username = await auth.login(email, password);
+      await setUsername(username);
       window.location = state ? state.from.pathname : '/admin';
     } catch (error) {
       this.setState({ loading: false });
@@ -49,7 +54,7 @@ class LoginForm extends FormComponent {
   };
 
   render() {
-    if (auth.currentUser) return <Redirect to="/admin" />;
+    if (this.currentUser) return <Redirect to="/admin" />;
     const { loading } = this.state;
 
     return (

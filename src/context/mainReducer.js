@@ -10,6 +10,11 @@ const mainReducer = (state, action) => {
 			return {
 				...state
 			}
+		case "SET_USERNAME":
+			return{
+				...state,
+				username: action.payload
+			}
 		default:
 			return state;
 	}

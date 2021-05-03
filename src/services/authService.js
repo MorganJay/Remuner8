@@ -14,6 +14,7 @@ export async function login(email, password) {
   });
   localStorage.setItem(tokenKey, token);
   localStorage.setItem(userKey, userName);
+  return userName;
 }
 
 export function loginWithJwt(jwt) {
@@ -22,13 +23,14 @@ export function loginWithJwt(jwt) {
 
 export function logout() {
   localStorage.removeItem(tokenKey);
+  localStorage.removeItem(userKey);
 }
 
 export function getCurrentUser() {
   try {
     const jwt = localStorage.getItem(tokenKey);
     const userName = localStorage.getItem(userKey);
-    const user = jwtDecode(jwt)
+    const user = jwtDecode(jwt);
     return { ...user, userName };
   } catch (error) {
     return null;

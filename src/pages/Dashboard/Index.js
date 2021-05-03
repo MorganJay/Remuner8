@@ -13,8 +13,7 @@ import PerformanceChart from "components/Dashboard/PerformanceChart";
 import RevenueChart from "components/Dashboard/RevenueChart";
 
 const Index = () => {
-	const { state, events } = useContext(AppContext);
-	console.log(state, events);
+	//const { state, events } = useContext(AppContext);
 
 	const [activeNav, setActiveNav] = useState(1);
 	const [chartExample1Data, setChartExample1Data] = useState("data1");
@@ -35,10 +34,7 @@ const Index = () => {
 			try {
 				const data = await fetch(url).then(res => res.json());
 				setStatistics(data);
-				console.log({ data });
-			} catch (error) {
-				console.log({ error });
-			}
+			} catch (error) { }
 		};
 		fetchStatistics();
 	}, []);
