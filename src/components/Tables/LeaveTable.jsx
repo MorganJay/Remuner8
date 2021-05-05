@@ -32,10 +32,10 @@ class LeaveTable extends Component {
     { path: 'leaveType', label: 'Leave Type' },
     { path: 'from', label: 'From' },
     { path: 'to', label: 'To' },
-    { path: 'days', label: 'No Of Days' },
+    { path: 'days', label: 'No Of Days', content: ({days}) => <>{days} {days === "1" ? 'day' : 'days'}</> },
     { path: 'reason', label: 'Reason' },
     {
-      path: 'status',
+      key: 'status',
       label: 'Status',
       content: leave => <StatusDropDown leave={leave} />
     },
@@ -50,6 +50,7 @@ class LeaveTable extends Component {
       )
     }
   ];
+
   formatDates = data =>
     data
       ? data.map(data => {

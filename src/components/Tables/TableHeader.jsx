@@ -5,15 +5,27 @@ import { UncontrolledTooltip } from 'reactstrap';
 const TableHeader = ({ sortColumn, data, onSort, columns }) => {
   const sortData = (sortColumn, data) => {
     const { path, order } = sortColumn;
-    if (order === 'asc') {
-      !path.includes('id')
-        ? data.sort((a, b) => a[path].localeCompare(b[path]))
-        : data.sort((a, b) => a[path] - b[path]);
-    } else if (order === 'desc') {
-      !path.includes('id')
-        ? data.sort((a, b) => b[path].localeCompare(a[path]))
-        : data.sort((a, b) => b[path] - a[path]);
-    } else return null;
+
+    switch (order) {
+      case 'asc':
+        data.sort((a, b) =>
+          typeof a[path] === 'number'
+            ? a[path] - b[path]
+            : a[path].localeCompare(b[path])
+        );
+        break;
+
+      case 'desc':
+        data.sort((a, b) =>
+          typeof b[path] === 'number'
+            ? b[path] - a[path]
+            : b[path].localeCompare(a[path])
+        );
+        break;
+
+      default:
+        break;
+    }
   };
 
   const raiseSort = path => {
@@ -38,29 +50,31 @@ const TableHeader = ({ sortColumn, data, onSort, columns }) => {
       <tr>
         {columns ? (
           columns.map((column, index) => (
-            <>
+            <Th
+              key={index}
+              order={sortColumn.order}
+              active={sortColumn.path === column.path}
+              onClick={() => raiseSort(column.path)}
+              tabIndex={0}
+              sort={column.path}
+              style={{ fontSize: '1.6ch' }}
+              id={column.path}
+            >
               {column.path ? (
                 <UncontrolledTooltip
                   key={`tooltip${index}`}
                   placement="top"
                   target={column.path}
                 >
-                  {`Click to sort by ${sortColumn.path === column.path ? getSortText(sortColumn) : 'ascending'}`}
+                  {`Click to sort by ${
+                    sortColumn.path === column.path
+                      ? getSortText(sortColumn)
+                      : 'ascending'
+                  }`}
                 </UncontrolledTooltip>
               ) : null}
-              <Th
-                key={index}
-                order={sortColumn.order}
-                active={sortColumn.path === column.path}
-                onClick={() => raiseSort(column.path)}
-                tabIndex={0}
-                sort={column.path}
-                style={{ fontSize: '1.6ch' }}
-                id={column.path}
-              >
-                {column.label}
-              </Th>
-            </>
+              {column.label}
+            </Th>
           ))
         ) : (
           <th>No data</th>

@@ -5,12 +5,12 @@ import { Button, Form, FormGroup } from 'reactstrap';
 
 import FormComponent from '../Common/FormComponent';
 
+import { AppContext } from './../../../context/store';
 import http from '../../../services/httpService';
 import auth from '../../../services/authService';
 import modal from '../../../services/modalService';
 
 import 'assets/scss/forms.styles.scss';
-import { AppContext } from './../../../context/store';
 
 class LoginForm extends FormComponent {
   static contextType = AppContext;
@@ -63,7 +63,7 @@ class LoginForm extends FormComponent {
           Don't have an account yet? <Link to="/register"> Sign Up</Link>
         </p>
         <Form className="login" onSubmit={this.handleSubmit}>
-          {this.renderInput('email', 'Email Address')}
+          {this.renderInput('email', 'Email Address', 'email')}
           {this.renderPasswordInput('password', 'Password')}
           <FormGroup>
             <Button

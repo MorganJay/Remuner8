@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FormGroup, Button, FormFeedback, Input, Label } from 'reactstrap';
+import { FormGroup, Button, FormFeedback, Input, Label, FormText } from 'reactstrap';
 
 const PasswordInput = ({ name, label, error, ...props }) => {
 
@@ -33,7 +33,16 @@ const PasswordInput = ({ name, label, error, ...props }) => {
       <Label htmlFor="current-password" className="label">
         {label}
       </Label>
-      {error && <FormFeedback>{error}</FormFeedback>}
+      {error && <div>
+        <FormFeedback>{error}</FormFeedback>
+        <FormText
+          id="password-constraints"
+          className={error.password ? 'text-red' : null}
+        >
+          8 - 32 characters long, with at least one lowercase and uppercase
+          letter, a number and a special character
+        </FormText>
+      </div>}
     </FormGroup>
   );
 };

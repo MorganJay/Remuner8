@@ -151,7 +151,7 @@ const Sidebar = props => {
                 <span>Support</span>
               </DropdownItem>
               <DropdownItem divider />
-              <DropdownItem to="/login" tag={Link}>
+              <DropdownItem to="/logout" tag={Link}>
                 <i className="ni ni-user-run" />
                 <span>Logout</span>
               </DropdownItem>

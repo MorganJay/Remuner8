@@ -4,9 +4,9 @@ const apiEndpoint = '/accounts/register';
 
 export function register(user) {
   return http.post(apiEndpoint, {
+    userName: user.userName,
     email: user.email,
     password: user.password,
-    username: user.username,
     confirmPassword: user.confirmPassword
   });
 }
@@ -15,7 +15,7 @@ export function forgotPassword(user) {
   return http.post(apiEndpoint, {
     email: user.email,
     password: user.password,
-    username: user.username,
+    userName: user.userName,
     confirmPassword: user.confirmPassword
   });
 }

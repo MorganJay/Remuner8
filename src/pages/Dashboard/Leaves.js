@@ -38,9 +38,18 @@ class Leaves extends Component {
       formData: [object],
       editModalOpen: !this.state.editModalOpen
     });
-
-  mockUrl = 'https://6072ea32e4e0160017ddf097.mockapi.io/api/leaves';
-  url = 'https://localhost:44333/api/leaves';
+    
+    mockUrl = 'https://6072ea32e4e0160017ddf097.mockapi.io/api/leaves';
+    url = 'https://localhost:44333/api/leaves';
+    
+    cleanLeaves = data => {
+      const leaves = [...data];
+      leaves.map(leave => {
+        leave.days = parseInt(leave.days.slice(5));
+        return leave;
+      });
+      return leaves;
+    };
 
   fetchLeaves = async () => {
     try {
@@ -48,7 +57,8 @@ class Leaves extends Component {
 
       if (response.ok) {
         const data = await response.json();
-        this.setState({ loading: false, leaves: data });
+        const cleanData = this.cleanLeaves(data);
+        this.setState({ loading: false, leaves: cleanData });
       }
     } catch (error) {
       console.log(error);
@@ -58,6 +68,7 @@ class Leaves extends Component {
   componentDidMount() {
     this.fetchLeaves();
   }
+
 
   render() {
     const {

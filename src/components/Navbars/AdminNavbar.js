@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import {
   DropdownMenu,
@@ -11,13 +11,13 @@ import {
   Media
 } from 'reactstrap';
 
-import { AppContext } from 'context/store';
+// import { AppContext } from 'context/store';
 import auth from '../../services/authService';
 
 import AdminImage from '../../assets/img/theme/adminImage.jfif';
 
 const AdminNavbar = props => {
-  const appContext = useContext(AppContext);
+  // const appContext = useContext(AppContext);
   const { userName } = auth.currentUser;
 
   return (
