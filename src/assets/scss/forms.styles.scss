@@ -78,8 +78,7 @@ $background: '../img/theme/loginBackgroundImg.jpg';
     }
   }
 
-  #toggle-password,
-  #toggle-confirm-password {
+  .toggle-password {
     all: unset;
     background: none;
     border: none;
@@ -90,6 +89,16 @@ $background: '../img/theme/loginBackgroundImg.jpg';
     top: -23px;
     right: 2px;
     outline: none;
+
+    &:hover,
+    &:focus,
+    &:active {
+      color: inherit;
+      box-shadow: none;
+      transform: none;
+      background-color: transparent;
+      border-color: none;
+    }
   }
 
   #password-constraints {

@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { FormGroup, Button, FormFeedback, Input, Label, FormText } from 'reactstrap';
+import { FormGroup, FormFeedback, Input, Label } from 'reactstrap';
 
 const PasswordInput = ({ name, label, error, ...props }) => {
-
   const [showPassword, setShowPassword] = useState(false);
   return (
     <FormGroup>
-      <Button
-        id="toggle-password"
+      <button
+        className="toggle-password"
+        tabIndex="-1"
         type="button"
         onClick={() => setShowPassword(!showPassword)}
         aria-label={
@@ -17,7 +17,7 @@ const PasswordInput = ({ name, label, error, ...props }) => {
         }
       >
         {showPassword ? 'Hide' : 'Show'} password
-      </Button>
+      </button>
       <Input
         type={showPassword ? 'text' : 'password'}
         name={name}
@@ -26,23 +26,24 @@ const PasswordInput = ({ name, label, error, ...props }) => {
         autoComplete="current-password"
         placeholder={label}
         pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-`~()_=+{}\|'.<>;:,/]).{8,33}$"
-        required
         invalid={error && error.length > 0}
+        required
         {...props}
       />
       <Label htmlFor="current-password" className="label">
         {label}
       </Label>
-      {error && <div>
-        <FormFeedback>{error}</FormFeedback>
-        <FormText
-          id="password-constraints"
-          className={error.password ? 'text-red' : null}
-        >
-          8 - 32 characters long, with at least one lowercase and uppercase
-          letter, a number and a special character
-        </FormText>
-      </div>}
+      {error && (
+        <>
+          <FormFeedback
+            id="password-constraints"
+            className={error ? 'text-red' : null}
+          >
+            Must be 8 - 32 characters long, with at least one lowercase and
+            uppercase letter, numbers and special characters
+          </FormFeedback>
+        </>
+      )}
     </FormGroup>
   );
 };

@@ -1,15 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import Joi from 'joi-browser';
-import {
-  Label,
-  Button,
-  Form,
-  FormGroup,
-  FormFeedback,
-  FormText,
-  Input
-} from 'reactstrap';
+import { Button, Form } from 'reactstrap';
 
 import FormComponent from '../Common/FormComponent';
 import modal from '../../../services/modalService';
@@ -37,14 +29,10 @@ class RegistrationForm extends FormComponent {
       .label('Email Address')
       .email({ minDomainSegments: 2 }),
     password: Joi.string()
+      .regex(new RegExp(this.passwordPattern))
       .required()
-      .label('Password')
-      .min(8)
-      .max(32)
-      .regex(
-        /^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-`~()_=+{}\\|'.<>;:,/]).{8,33}$/
-      ),
-    confirmPassword: Joi.ref('password')
+      .label('Password'),
+    confirmPassword: Joi.any().equal(Joi.ref('password')).required()
   };
 
   doSubmit = async () => {
@@ -74,6 +62,7 @@ class RegistrationForm extends FormComponent {
 
   render() {
     const { loading } = this.state;
+
     return (
       <>
         <p className="text-center text-muted mb-5">Access your dashboard</p>
