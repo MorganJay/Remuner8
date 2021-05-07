@@ -45,10 +45,13 @@ const LoginForm = props => {
       if (http.expectedError(error, 400))
         return !errors ? modal.error(message) : modal.error(...errors);
 
+      if (http.expectedError(error, 401))
+        return modal.error('Wrong email or password', ...errors);
+
       if (http.expectedError(error, 404))
         return modal.error('Failed to fetch', 'Not found');
 
-      modal.error(...errors, 'Wrong email or password');
+      modal.error(...errors);
     }
   };
 
