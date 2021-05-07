@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { FormGroup, FormFeedback, Input, Label } from 'reactstrap';
+import { useField, ErrorMessage } from 'formik';
 
-const PasswordInput = ({ name, label, error, ...props }) => {
+const PasswordInput = ({ label, error, ...props }) => {
   const [showPassword, setShowPassword] = useState(false);
+  console.log(props);
+  const [field, meta] = useField(props);
   return (
     <FormGroup>
       <button
@@ -20,19 +23,19 @@ const PasswordInput = ({ name, label, error, ...props }) => {
       </button>
       <Input
         type={showPassword ? 'text' : 'password'}
-        name={name}
-        id={name}
         title={label}
         autoComplete="current-password"
         placeholder={label}
         pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-`~()_=+{}\|'.<>;:,/]).{8,33}$"
-        invalid={error && error.length > 0}
+        className={meta.touched ? (meta.error ? 'is-invalid' : 'is-valid') : ''}
         required
         {...props}
+        {...field}
       />
       <Label htmlFor="current-password" className="label">
         {label}
       </Label>
+      <ErrorMessage component={FormFeedback} name={field.name} />
       {error && (
         <>
           <FormFeedback

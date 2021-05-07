@@ -1,9 +1,12 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
-import Joi from 'joi-browser';
-import { Button, Form } from 'reactstrap';
+import { Button } from 'reactstrap';
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
 
-import FormComponent from '../Common/FormComponent';
+import { TextField } from '../../Forms/Common/FormInput';
+import PasswordInput from '../Common/PasswordInput';
+
 import modal from '../../../services/modalService';
 import user from '../../../services/userService';
 import auth from '../../../services/authService';
@@ -11,88 +14,99 @@ import http from '../../../services/httpService';
 
 import 'assets/scss/forms.styles.scss';
 
-class RegistrationForm extends FormComponent {
-  state = {
-    data: {
-      userName: '',
-      email: '',
-      password: '',
-      confirmPassword: ''
-    },
-    errors: {}
+const RegistrationForm = () => {
+  const state = {
+    userName: '',
+    email: '',
+    password: '',
+    confirmPassword: ''
   };
 
-  schema = {
-    userName: Joi.string().required().label('Username'),
-    email: Joi.string()
-      .required()
-      .label('Email Address')
-      .email({ minDomainSegments: 2 }),
-    password: Joi.string()
-      .regex(new RegExp(this.passwordPattern))
-      .required()
-      .label('Password'),
-    confirmPassword: Joi.any().equal(Joi.ref('password')).required()
-  };
+  const schema = Yup.object({
+    userName: Yup.string()
+      .required('A unique username is required')
+      .label('Username'),
+    email: Yup.string()
+      .required('Email Address is required')
+      .email('Invalid Email Address'),
+    password: Yup.string().required(
+      'Password must be 8 - 32 characters long, with at least one lowercase and uppercase letter, number and a special character'
+    ),
+    confirmPassword: Yup.string()
+      .oneOf([Yup.ref('password'), null], 'Passwords must match')
+      .required('Passwords must match')
+  });
 
-  doSubmit = async () => {
+  const handleSubmit = async (data, setSubmitting, resetForm) => {
     try {
-      const { token, message } = await user.register(this.state.data);
-      auth.loginWithJwt(token);
+      setSubmitting(true);
+      const {
+        data: { token, message, userName }
+      } = await user.register(data);
+      auth.loginWithJwt(token, userName);
       modal.success(message);
+      setSubmitting(false);
+      resetForm();
       setTimeout(() => (window.location = '/admin'), 300);
     } catch (error) {
-      this.setState({ loading: false });
       if (!error.response) return;
 
-      if (http.expectedError(error, 400)) {
-        const errors = { ...this.state.errors };
-        errors.username = error.response.data.errors.pop();
-        this.setState({ errors });
-      }
+      const { errors, message } = error.response.data;
+
+      if (http.expectedError(error, 400))
+        return !errors ? modal.error(message) : modal.error(...errors);
 
       if (http.expectedError(error, 404))
         return modal.error('Failed to fetch', 'Not found');
 
-      Array.isArray(error.response.data.errors) &&
-        modal.error(...error.response.data.errors);
-      // modal.error(error.message, 'Something happened!');
+      modal.error(...errors);
     }
   };
 
-  render() {
-    const { loading } = this.state;
-
-    return (
-      <>
-        <p className="text-center text-muted mb-5">Access your dashboard</p>
-        <Form onSubmit={this.handleSubmit} className="registration">
-          {this.renderInput('userName', 'Username')}
-          {this.renderInput('email', 'Email Address', 'email')}
-          {this.renderPasswordInput('password', 'Password')}
-          {this.renderPasswordInput('confirmPassword', 'Confirm Password')}
-          <Button
-            type="submit"
-            color="primary"
-            className={loading ? 'onload' : null}
-            block
-          >
-            {loading ? (
-              <span>
-                <i className="fas fa-circle-o-notch fa-spin"></i> LOADING
-              </span>
-            ) : (
-              'CREATE ACCOUNT'
-            )}
-          </Button>
-        </Form>
-        <p className="text-muted text-center mt-4">
-          Already have an account?
-          <Link to="/login"> Sign In</Link>
-        </p>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <p className="text-center text-muted mb-5">Access your dashboard</p>
+      <Formik
+        initialValues={state}
+        validationSchema={schema}
+        onSubmit={(data, { setSubmitting, resetForm }) =>
+          handleSubmit(data, setSubmitting, resetForm)
+        }
+      >
+        {({ isSubmitting }) => (
+          <Form className="registration">
+            <TextField label="Username" name="userName" required />
+            <TextField
+              label="Email Address"
+              name="email"
+              type="email"
+              required
+            />
+            <PasswordInput label="Password" name="password" />
+            <PasswordInput label="Confirm Password" name="confirmPassword" />
+            <Button
+              type="submit"
+              color="primary"
+              className={isSubmitting ? 'onload' : null}
+              block
+            >
+              {isSubmitting ? (
+                <span>
+                  <i className="fas fa-circle-o-notch fa-spin"></i> LOADING
+                </span>
+              ) : (
+                'CREATE ACCOUNT'
+              )}
+            </Button>
+          </Form>
+        )}
+      </Formik>
+      <p className="text-muted text-center mt-4">
+        Already have an account?
+        <Link to="/login"> Sign In</Link>
+      </p>
+    </>
+  );
+};
 
 export default withRouter(RegistrationForm);

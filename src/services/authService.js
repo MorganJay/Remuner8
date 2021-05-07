@@ -17,8 +17,9 @@ export async function login(email, password) {
   return userName;
 }
 
-export function loginWithJwt(jwt) {
+export function loginWithJwt(jwt, userName) {
   localStorage.setItem(tokenKey, jwt);
+  localStorage.setItem(userKey, userName);
 }
 
 export function logout() {

@@ -121,6 +121,7 @@ a:active,
 a:focus {
   text-decoration: none;
   outline: none;
+  color: midnightblue;
 }
 .page-wrapper > .content {
   padding: 30px;

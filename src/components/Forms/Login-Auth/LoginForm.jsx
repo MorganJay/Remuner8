@@ -1,10 +1,11 @@
-import React from 'react';
-import Joi from 'joi-browser';
+import React, { useContext } from 'react';
 import { Link, Redirect, withRouter } from 'react-router-dom';
-import { Button, Form, FormGroup } from 'reactstrap';
+import { Button, FormGroup } from 'reactstrap';
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
 
-import FormComponent from '../Common/FormComponent';
-
+import PasswordInput from './../Common/PasswordInput';
+import { TextField } from '../../Forms/Common/FormInput';
 import { AppContext } from './../../../context/store';
 import http from '../../../services/httpService';
 import auth from '../../../services/authService';
@@ -12,85 +13,93 @@ import modal from '../../../services/modalService';
 
 import 'assets/scss/forms.styles.scss';
 
-class LoginForm extends FormComponent {
-  static contextType = AppContext;
-  currentUser = auth.currentUser;
-  state = {
-    data: { email: '', password: '' },
-    errors: {},
-    loading: false
-  };
+const LoginForm = props => {
+  const appContext = useContext(AppContext);
+  const currentUser = auth.currentUser;
+  if (currentUser) return <Redirect to="/admin" />;
 
-  schema = {
-    email: Joi.string().required().label('Email Address'),
-    password: Joi.string().required().label('Password')
-  };
+  const state = { email: '', password: '' };
 
-  doSubmit = async () => {
-    const { state } = this.props.location;
-    const { email, password } = this.state.data;
-    const { setUsername } = this.context.events;
+  const schema = Yup.object({
+    email: Yup.string()
+      .required('Email Address is required obviously')
+      .email('Invalid Email Address'),
+    password: Yup.string().required('Password is required obviously')
+  });
+
+  const handleSubmit = async (data, setSubmitting) => {
+    const { state } = props.location;
+    const { email, password } = data;
+    const { setUsername } = appContext.events;
     try {
-      this.setState({ loading: !this.state.loading });
+      setSubmitting(true);
       const username = await auth.login(email, password);
       await setUsername(username);
+      setSubmitting(false);
+      modal.success();
       window.location = state ? state.from.pathname : '/admin';
     } catch (error) {
-      this.setState({ loading: false });
       if (!error.response) return;
+      const { errors, message } = error.response.data;
 
-      if (http.expectedError(error, 400)) {
-        const errors = { ...this.state.errors };
-        errors.username = error.response.data.errors.pop();
-        this.setState({ errors });
-      }
+      if (http.expectedError(error, 400))
+        return !errors ? modal.error(message) : modal.error(...errors);
 
       if (http.expectedError(error, 404))
         return modal.error('Failed to fetch', 'Not found');
 
-      Array.isArray(error.response.data.errors) &&
-        modal.error(...error.response.data.errors);
+      modal.error(...errors, 'Wrong email or password');
     }
   };
 
-  render() {
-    if (this.currentUser) return <Redirect to="/admin" />;
-    const { loading } = this.state;
-
-    return (
-      <>
-        <p className="text-muted text-center mb-5">
-          Don't have an account yet? <Link to="/register"> Sign Up</Link>
-        </p>
-        <Form className="login" onSubmit={this.handleSubmit}>
-          {this.renderInput('email', 'Email Address', 'email')}
-          {this.renderPasswordInput('password', 'Password')}
-          <FormGroup>
-            <Button
-              type="submit"
-              id="sign-in"
-              color="primary"
-              className={loading ? 'onload' : ''}
-              block
-            >
-              {loading ? (
-                <span>
-                  <i className="fas fa-circle-o-notch fa-spin"></i> LOADING
-                </span>
-              ) : (
-                'LOG IN'
-              )}
-            </Button>
-          </FormGroup>
-        </Form>
-        <div className="d-grid gap-2 mt-4 text-center">
-          <Link to="/resetPassword" className="forgot-text">
-            Forgot password?
-          </Link>
-        </div>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <p className="text-muted text-center mb-5">
+        Don't have an account yet? <Link to="/register"> Sign Up</Link>
+      </p>
+      <Formik
+        initialValues={state}
+        validationSchema={schema}
+        onSubmit={(data, { setSubmitting, resetForm }) =>
+          handleSubmit(data, setSubmitting)
+        }
+      >
+        {({ isSubmitting }) => (
+          <Form className="login">
+            <TextField
+              label="Email Address"
+              name="email"
+              type="email"
+              required
+            />
+            <PasswordInput label="Password" name="password" />
+            <FormGroup>
+              <Button
+                type="submit"
+                id="sign-in"
+                color="primary"
+                className={isSubmitting ? 'onload' : ''}
+                block
+              >
+                {isSubmitting ? (
+                  <span>
+                    <i className="fas fa-circle-o-notch fa-spin"></i> LOADING
+                  </span>
+                ) : (
+                  'LOG IN'
+                )}
+              </Button>
+            </FormGroup>
+          </Form>
+        )}
+      </Formik>
+      <div className="d-grid gap-2 mt-4 text-center">
+        <Link to="/resetPassword" className="forgot-text">
+          Forgot password?
+        </Link>
+      </div>
+    </>
+  );
+};
 
 export default withRouter(LoginForm);
