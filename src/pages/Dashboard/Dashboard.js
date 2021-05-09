@@ -7,7 +7,6 @@ import AdminNavbar from 'components/Navbars/AdminNavbar';
 import AdminFooter from 'components/Footers/AdminFooter';
 import Sidebar from 'components/Sidebar/Sidebar';
 import { MainContent } from 'components/Dashboard/MainContent';
-import EmployeeProfile from 'pages/Dashboard/EmployeeProfile';
 import Custom404 from 'pages/404';
 
 // Anon image
@@ -86,7 +85,6 @@ const Dashboard = props => {
           {getRoutes(hrRoutes)}
           {getRoutes(administrationRoutes)}
           <Redirect exact from="/admin" to="/admin/index" />
-          <Route path="/admin/employee/profile" component={EmployeeProfile} />
           <Route path="/not-found" component={Custom404} />
           <Redirect to="/not-found" />
         </Switch>

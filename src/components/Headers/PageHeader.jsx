@@ -6,7 +6,7 @@ import { Link, withRouter } from 'react-router-dom';
 const Header = ({ children, match, button, breadcrumb }) => {
   const title = match.url.slice(7);
   return (
-    <div className="page-header px-lg-4">
+    <div className="page-header">
       <Row className="align-items-center pr-md-4 mt-md--4">
         <Col sm={6} md={6}>
           <h3 className="page-title text-capitalize">{breadcrumb || title}</h3>

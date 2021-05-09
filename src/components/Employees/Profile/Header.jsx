@@ -1,26 +1,25 @@
 import React from 'react';
-import '../../../assets/css/EmployeeProfile.css';
+import { Card, Row, CardBody, Col } from 'reactstrap';
 
-const Header = () => {
+import Image from 'assets/img/theme/team-1-800x800.jpg';
+import 'assets/css/EmployeeProfile.css';
+import EditIcon from './EditIcon';
+
+const Header = ({ toggleModal }) => {
   return (
-    <div className="card mb-0">
-      <div className="card-body">
-        <div className="row">
-          <div className="col-md-12">
+    <Card>
+      <CardBody>
+        <Row>
+          <Col md={12}>
             <div className="profile-view">
               <div className="profile-img-wrap">
                 <div className="profile-img">
-                  <a href="#">
-                    <img
-                      alt=""
-                      src="/purple/fa88689eba04e38282d26c8b1a25c274.jpg"
-                    />
-                  </a>
+                  <img alt="Employee Avatar" src={Image} />
                 </div>
               </div>
               <div className="profile-basic">
-                <div className="row">
-                  <div className="col-md-5">
+                <Row>
+                  <Col md={12} xl={5} className="mb-lg-2">
                     <div className="profile-info-left">
                       <h3 className="user-name m-t-0 mb-0">John Doe</h3>
                       <h6 className="text-muted">UI/UX Design Team</h6>
@@ -30,19 +29,21 @@ const Header = () => {
                         Date of Join : 1st Jan 2013
                       </div>
                     </div>
-                  </div>
-                  <div className="col-md-7">
+                  </Col>
+                  <Col md={12} lg={12} xl={7} className="">
                     <ul className="personal-info">
                       <li>
                         <div className="title">Phone:</div>
                         <div className="text">
-                          <a href="">9876543210</a>
+                          <a href={`tel:9876543210`}>9876543210</a>
                         </div>
                       </li>
                       <li>
                         <div className="title">Email:</div>
                         <div className="text">
-                          <a href="">johndoe@example.com</a>
+                          <a href={`mailto:johndoe@example.com`}>
+                            johndoe@example.com
+                          </a>
                         </div>
                       </li>
                       <li>
@@ -65,15 +66,17 @@ const Header = () => {
                         </div>
                       </li>
                     </ul>
-                  </div>
-                </div>
+                  </Col>
+                </Row>
+              </div>
+              <div className="pro-edit">
+               <EditIcon toggle={toggleModal} />
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-   
+          </Col>
+        </Row>
+      </CardBody>
+    </Card>
   );
 };
 

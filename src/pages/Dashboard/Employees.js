@@ -13,7 +13,7 @@ import EmployeeTable from 'components/Tables/EmployeeTable';
 import CustomModal from 'components/Modals/CustomModal';
 import DeleteModal from 'components/Modals/DeleteModal';
 import EmployeeForm from 'components/Forms/Employees/EmployeeForm';
-import Custom404 from 'pages/404';
+import EmployeeProfile from 'components/Employees/Profile/EmployeeProfile';
 
 class Employees extends Component {
   state = {
@@ -85,34 +85,40 @@ class Employees extends Component {
       history,
       location: { pathname }
     } = this.props;
-
+    
     return (
       <div className="page-wrapper">
         <div className="content container-fluid">
-          <PageHeader
-            button={
-              <CustomButton
-                className="btn add-btn mr-0 float-right"
-                onClick={this.toggleAddModal}
+          {pathname !== '/admin/employees/profile' && (
+            <>
+              <PageHeader
+                button={
+                  <CustomButton
+                    className="btn add-btn mr-0 float-right"
+                    onClick={this.toggleAddModal}
+                  >
+                    <i className="fa fa-plus"></i> Add Employee
+                  </CustomButton>
+                }
               >
-                <i className="fa fa-plus"></i> Add Employee
-              </CustomButton>
-            }
-          >
-            <Button
-              className={pathname.includes('all') ? 'btn-link' : null}
-              onClick={() => history.push('/admin/employees/all')}
-            >
-              <i className="fa fa-th"></i>
-            </Button>
-            <Button
-              className={pathname.includes('list') ? 'btn-link' : null}
-              onClick={() => history.push('/admin/employees/employees-list')}
-            >
-              <i className="fa fa-bars"></i>
-            </Button>
-          </PageHeader>
-          <SearchRow />
+                <Button
+                  className={pathname.includes('all') ? 'btn-link' : null}
+                  onClick={() => history.push('/admin/employees/all')}
+                >
+                  <i className="fa fa-th"></i>
+                </Button>
+                <Button
+                  className={pathname.includes('list') ? 'btn-link' : null}
+                  onClick={() =>
+                    history.push('/admin/employees/employees-list')
+                  }
+                >
+                  <i className="fa fa-bars"></i>
+                </Button>
+              </PageHeader>
+              <SearchRow />
+            </>
+          )}
           <Switch>
             <Route
               path="/admin/employees/all"
@@ -144,7 +150,7 @@ class Employees extends Component {
             />
             <Route
               path="/admin/employees/profile"
-              render={() => <Custom404 />}
+              render={() => <EmployeeProfile />}
             />
             <Redirect exact from="/admin/employees" to="/admin/employees/all" />
           </Switch>

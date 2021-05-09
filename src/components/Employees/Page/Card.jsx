@@ -13,7 +13,7 @@ const Card = ({
 }) => (
   <ProfileWidget>
     <ProfileImg>
-      <Avatar to="/admin/employee/profile">
+      <Avatar to="/admin/employees/profile">
         <img src={imgSrc} alt="A fine employee" />
       </Avatar>
     </ProfileImg>
@@ -25,7 +25,7 @@ const Card = ({
       />
     </Dropdown>
     <UserName>
-      <AvatarLink to="/admin/employee/profile">{name}</AvatarLink>
+      <AvatarLink to="/admin/employees/profile">{name}</AvatarLink>
     </UserName>
     <div className="small text-muted">{employee_id}</div>
   </ProfileWidget>

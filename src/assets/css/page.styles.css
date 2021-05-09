@@ -125,6 +125,7 @@ a:focus {
 }
 .page-wrapper > .content {
   padding: 30px;
+  margin-top: -15px;
 }
 .container,
 .container-fluid,

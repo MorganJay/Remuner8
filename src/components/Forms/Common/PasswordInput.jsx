@@ -4,7 +4,6 @@ import { useField, ErrorMessage } from 'formik';
 
 const PasswordInput = ({ label, error, ...props }) => {
   const [showPassword, setShowPassword] = useState(false);
-  console.log(props);
   const [field, meta] = useField(props);
   return (
     <FormGroup>
@@ -43,7 +42,7 @@ const PasswordInput = ({ label, error, ...props }) => {
             className={error ? 'text-red' : null}
           >
             Must be 8 - 32 characters long, with at least one lowercase and
-            uppercase letter, numbers and special characters
+            uppercase letter, a number and special character
           </FormFeedback>
         </>
       )}

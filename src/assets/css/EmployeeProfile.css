@@ -1,39 +1,27 @@
-.card-body {
-  -ms-flex: 1 1 auto;
-  flex: 1 1 auto;
-  min-height: 1px;
-  padding: 1.25rem;
-}
 .card {
-  border: 1px solid #ededed;
   box-shadow: 0 1px 1px 0 rgb(0 0 0 / 20%);
   margin-bottom: 30px;
+  border: 1px solid #ededed;
 }
-.card {
-  position: relative;
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  min-width: 0;
-  word-wrap: break-word;
-  background-color: #fff;
-  background-clip: border-box;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  border-radius: 0.25rem;
+.card-title {
+  color: #1f1f1f;
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 20px;
 }
-.row {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  margin-right: -15px;
-  margin-left: -15px;
-}
-
 .profile-view {
   position: relative;
 }
+.profile-info-left{
+  border-right: 2px dashed #ccc;
+}
+.user-name{
+  font-size: 1.5rem;
+}
+.user-name + h6{
+  font-size: 0.75rem;
+}
+
 .profile-view .profile-img-wrap {
   height: 120px;
   width: 120px;
@@ -49,15 +37,11 @@
   margin-left: 140px;
   padding-right: 50px;
 }
-.profile-basic {
-  margin-left: 140px;
-}
 .profile-view .profile-img {
   width: 120px;
   height: 120px;
 }
 .profile-img {
-  cursor: pointer;
   height: 80px;
   margin: 0 auto;
   position: relative;
@@ -80,6 +64,9 @@ dl {
   margin-top: 0;
   margin-bottom: 1em;
 }
+.personal-info li {
+  margin-bottom: 10px;
+}
 .personal-info li .title {
   color: #4f4f4f;
   float: left;
@@ -87,15 +74,30 @@ dl {
   margin-right: 30px;
   width: 25%;
 }
-.avatar > img {
-  border-radius: 50%;
+.personal-info li .text {
+  color: #8e8e8e;
   display: block;
   overflow: hidden;
-  width: 100%;
 }
-img {
+.profile-img img {
   vertical-align: middle;
+  border-radius: 50%;
+  overflow: hidden;
   border-style: none;
+  width: 100%;
+  height: auto;
+}
+.staff-id {
+  font-size: 15px;
+  font-weight: 500;
+}
+.profile-view .pro-edit {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.profile-box .personal-info .title{
+  width: 50%;
 }
 .edit-icon {
   background-color: #eee;
@@ -109,6 +111,11 @@ img {
   text-align: center;
   width: 26px;
 }
+.edit-icon:hover {
+  color: white;
+  background-color: #5e72e4;
+  border-color: #5e72e4;
+}
 input,
 button,
 a {
@@ -118,20 +125,58 @@ a {
   -ms-transition: all 0.4s ease;
   -webkit-transition: all 0.4s ease;
 }
-@media only screen and (max-width: 991.98px) {
+@media (min-width: 768px) and (max-width: 848px) {
+ .profile-view .profile-basic {
+   margin-left: 10px;
+ }
+ .profile-info-left{
+   padding-left: 140px;
+ }
+}
+@media only screen and (max-width: 575.98px) {
+  .profile-img-wrap {
+    position: relative;
+    margin: 0 auto;
+  }
+
+  .profile-view .profile-basic {
+    margin-left: 0;
+    padding-right: 0;
+  }
+
+  .profile-basic {
+    margin-left: 0;
+    margin-top: 15px;
+  }
+
+  .profile-info-left {
+    text-align: center;
+  }
+}
+@media only screen and (max-width: 767.98px) {
+  .user-name {
+    font-size: 1.375rem;
+  }
+  .profile-info-left h6 {
+    font-size: 0.75rem;
+  }
+  .card-title,
+  .dash-stats-list h4,
+  .custom-modal .modal-title,
+  .file-wrap .file-cont-wrap .file-cont-inner .file-cont-header > span,
+  .faq-card .card .card-header h4 > a,
+  .lead {
+    font-size: 1.285712rem;
+  }
+}
+
+
+
+@media only screen and (max-width: 1050px) {
   .profile-info-left {
     border-right: none;
     border-bottom: 2px dashed #ccc;
     margin-bottom: 20px;
     padding-bottom: 20px;
   }
-}
-
-.fa {
-    display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
 }
