@@ -5,7 +5,8 @@ import DummyImage from 'assets/img/theme/adminImage.jfif';
 const initialState = {
   username: '',
   token: '',
-  avatar: DummyImage
+  avatar: DummyImage,
+  employee: null
 };
 
 export const AppContext = createContext(initialState);
@@ -17,9 +18,12 @@ export const AppProvider = ({ children }) => {
 
   const uploadImage = payload => dispatch({ type: 'UPLOAD_IMAGE', payload });
 
-  const setUsername = payload => dispatch({ type: 'SET_USERNAME', payload});
+  const setUsername = payload => dispatch({ type: 'SET_USERNAME', payload });
 
-  const events = { storeToken, uploadImage, setUsername };
+  const clickEmployee = payload =>
+    dispatch({ type: 'CLICK_EMPLOYEE', payload });
+
+  const events = { storeToken, uploadImage, setUsername, clickEmployee };
 
   return (
     <AppContext.Provider value={{ state, events }}>

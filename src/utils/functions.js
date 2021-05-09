@@ -39,8 +39,6 @@ export const totalEarnings = ({
   medical
 }) => +basic + +housing + +transport + +medical + +otherAllowance;
 
-export const totalDeductions = ({ tax, pension, otherDeduction }) =>
-  +tax + +pension + +otherDeduction;
+export const totalDeductions = ({ tax, pension, otherDeduction }) => +tax + +pension + +otherDeduction;
 
-export const calculateNet = (totalEarnings, totalDeductions) =>
-  (totalEarnings - totalDeductions).toFixed(2);
+export const calculateNet = (totalEarnings, totalDeductions) => (totalEarnings - totalDeductions).toFixed(2);

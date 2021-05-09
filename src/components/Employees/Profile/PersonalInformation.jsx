@@ -1,24 +1,29 @@
 import React from 'react';
 
 import ProfileCard from './ProfileCard';
-import DataList from './DataList';
 
-const data = [
-  { title: 'NIN', text: '1234567890' },
-  { title: 'Tel', text: '08165336114' },
-  { title: 'Nationality', text: 'Indian' },
-  { title: 'Religion', text: 'Christianity' },
-  { title: 'Marital Status', text: 'Married' }
-];
-
-const PersonalInformation = ({ toggle }) => {
-  const title = 'Personal Information';
+const PersonalInformation = ({ employee, toggle }) => {
   return (
-    <>
-      <ProfileCard title={title} toggleModal={toggle}>
-        <DataList data={data} />
-      </ProfileCard>
-    </>
+    <ProfileCard title="Personal Information" toggleModal={toggle}>
+      <ul className="personal-info">
+        <li>
+          <div className="title">Date of Birth</div>
+          <div className="text">19 July 2021</div>
+        </li>
+        <li>
+          <div className="title">Gender</div>
+          <div className="text">Male</div>
+        </li>
+        <li>
+          <div className="title">Nationality</div>
+          <div className="text">Nigerian</div>
+        </li>
+        <li>
+          <div className="title">State of Origin</div>
+          <div className="text">Abia</div>
+        </li>
+      </ul>
+    </ProfileCard>
   );
 };
 

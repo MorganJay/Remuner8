@@ -1,11 +1,24 @@
 import React from 'react';
 import { Card, Row, CardBody, Col } from 'reactstrap';
+import dateFormat from 'dateformat';
 
-import Image from 'assets/img/theme/team-1-800x800.jpg';
-import 'assets/css/EmployeeProfile.css';
 import EditIcon from './EditIcon';
 
-const Header = ({ toggleModal }) => {
+import 'assets/css/EmployeeProfile.css';
+
+const Header = ({ employee, toggleModal }) => {
+  if (!employee) return null;
+
+  const {
+    name,
+    department,
+    join_date,
+    avatar,
+    email,
+    employee_id,
+    phone_number
+  } = employee;
+
   return (
     <Card>
       <CardBody>
@@ -14,19 +27,24 @@ const Header = ({ toggleModal }) => {
             <div className="profile-view">
               <div className="profile-img-wrap">
                 <div className="profile-img">
-                  <img alt="Employee Avatar" src={Image} />
+                  <img alt="Employee Avatar" src={avatar} />
                 </div>
               </div>
               <div className="profile-basic">
                 <Row>
                   <Col md={12} xl={5} className="mb-lg-2">
                     <div className="profile-info-left">
-                      <h3 className="user-name m-t-0 mb-0">John Doe</h3>
-                      <h6 className="text-muted">UI/UX Design Team</h6>
+                      <h3 className="user-name m-t-0 mb-0">{name}</h3>
+                      <h6 className="text-muted">{department}</h6>
                       <small className="text-muted">Web Designer</small>
-                      <div className="staff-id">Employee ID : FT-0001</div>
+                      <div className="staff-id">
+                        {`Employee ID : ${employee_id}`}
+                      </div>
                       <div className="small doj text-muted">
-                        Date of Join : 1st Jan 2013
+                        {`Date of Join : ${dateFormat(
+                          join_date,
+                          'dd mmmm yyyy'
+                        )}`}
                       </div>
                     </div>
                   </Col>
@@ -35,34 +53,19 @@ const Header = ({ toggleModal }) => {
                       <li>
                         <div className="title">Phone:</div>
                         <div className="text">
-                          <a href={`tel:9876543210`}>9876543210</a>
+                          <a href={`tel:${phone_number}`}>{phone_number}</a>
                         </div>
                       </li>
                       <li>
                         <div className="title">Email:</div>
                         <div className="text">
-                          <a href={`mailto:johndoe@example.com`}>
-                            johndoe@example.com
-                          </a>
+                          <a href={`mailto:${email}`}>{email}</a>
                         </div>
                       </li>
                       <li>
-                        <div className="title">Birthday:</div>
-                        <div className="text">24th July</div>
-                      </li>
-                      <li>
-                        <div className="title">Address:</div>
+                        <div className="title">Residential Address:</div>
                         <div className="text">
                           1861 Bayonne Ave, Manchester Township, NJ, 08759
-                        </div>
-                      </li>
-                      <li>
-                        <div className="title">Gender:</div>
-                        <div className="text">Male</div>
-                      </li>
-                      <li>
-                        <div className="text">
-                          <div className="avatar-box"></div>
                         </div>
                       </li>
                     </ul>
@@ -70,7 +73,7 @@ const Header = ({ toggleModal }) => {
                 </Row>
               </div>
               <div className="pro-edit">
-               <EditIcon toggle={toggleModal} />
+                <EditIcon toggle={toggleModal} />
               </div>
             </div>
           </Col>

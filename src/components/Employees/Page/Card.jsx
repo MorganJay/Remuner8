@@ -1,35 +1,53 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { AvatarLink } from 'components/Avatars/EmployeeAvatar';
 import ActionToggle from 'components/Custom-Buttons/ActionToggle';
+import { AppContext } from 'context/store';
+import { saveEmployee } from 'services/employeeService';
 
-const Card = ({
-  imgSrc,
-  employee: { name, employee_id },
-  toggleEditModal,
-  toggleDeleteModal
-}) => (
-  <ProfileWidget>
-    <ProfileImg>
-      <Avatar to="/admin/employees/profile">
-        <img src={imgSrc} alt="A fine employee" />
-      </Avatar>
-    </ProfileImg>
-    <Dropdown>
-      <ActionToggle
-        direction="left"
-        toggleEditModal={toggleEditModal}
-        toggleDeleteModal={toggleDeleteModal}
-      />
-    </Dropdown>
-    <UserName>
-      <AvatarLink to="/admin/employees/profile">{name}</AvatarLink>
-    </UserName>
-    <div className="small text-muted">{employee_id}</div>
-  </ProfileWidget>
-);
+const Card = ({ imgSrc, employee, toggleEditModal, toggleDeleteModal }) => {
+  const {
+    events: { clickEmployee }
+  } = useContext(AppContext);
+
+  const { name, employee_id } = employee;
+
+  const handleEmployeeSelect = employee => {
+    clickEmployee(employee);
+    saveEmployee(employee);
+  };
+
+  return (
+    <ProfileWidget>
+      <ProfileImg>
+        <Avatar
+          to="/admin/employees/profile"
+          onClick={() => handleEmployeeSelect(employee)}
+        >
+          <img src={imgSrc} alt="A fine employee" />
+        </Avatar>
+      </ProfileImg>
+      <Dropdown>
+        <ActionToggle
+          direction="left"
+          toggleEditModal={toggleEditModal}
+          toggleDeleteModal={toggleDeleteModal}
+        />
+      </Dropdown>
+      <UserName>
+        <AvatarLink
+          to="/admin/employees/profile"
+          onClick={() => handleEmployeeSelect(employee)}
+        >
+          {name}
+        </AvatarLink>
+      </UserName>
+      <div className="small text-muted">{employee_id}</div>
+    </ProfileWidget>
+  );
+};
 
 export default Card;
 
@@ -95,5 +113,6 @@ const Avatar = styled(Link)`
     display: block;
     overflow: hidden;
     width: 100%;
+    min-height: 80px;
   }
 `;

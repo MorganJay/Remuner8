@@ -1,16 +1,21 @@
 import React from 'react';
 
 import ProfileCard from './ProfileCard';
-import DataList from './DataList';
 
-const BankInformation = ({ toggle }) => {
-  const title = 'Bank Information';
+const BankInformation = ({ employee, toggle }) => {
   return (
-    <>
-      <ProfileCard title={title} toggleModal={toggle}>
-        <DataList />
-      </ProfileCard>
-    </>
+    <ProfileCard title='Bank Information' toggleModal={toggle}>
+      <ul className="personal-info">
+        <li>
+          <div className="title">Bank</div>
+          <div className="text">Access Bank</div>
+        </li>
+        <li>
+          <div className="title">Account Number</div>
+          <div className="text">0787659961</div>
+        </li>
+      </ul>
+    </ProfileCard>
   );
 };
 

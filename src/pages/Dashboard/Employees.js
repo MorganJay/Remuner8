@@ -85,7 +85,7 @@ class Employees extends Component {
       history,
       location: { pathname }
     } = this.props;
-    
+
     return (
       <div className="page-wrapper">
         <div className="content container-fluid">

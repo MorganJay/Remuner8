@@ -1,18 +1,40 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import DummyImage from 'assets/img/theme/team-1-800x800.jpg';
+import { saveEmployee } from './../../services/employeeService';
+import { AppContext } from 'context/store';
 
 const EmployeeAvatar = ({ employee }) => {
+  const {
+    events: { clickEmployee }
+  } = useContext(AppContext);
+
+  if (!employee) return null;
+
+  const { name, avatar } = employee;
+
+
+  const handleEmployeeSelect = employee => {
+    clickEmployee(employee);
+    saveEmployee(employee);
+  };
+
   return (
     <TableAvatar>
-      <Avatar to="/admin/employees/profile">
-        <Image src={employee.avatar || DummyImage} />
+      <Avatar
+        to="/admin/employees/profile"
+        onClick={() => handleEmployeeSelect(employee)}
+      >
+        <Image src={avatar} />
       </Avatar>
-      <AvatarLink to="/admin/employees/profile">
-        {employee.name || employee.employee}
-        <Job>{employee.name || employee.job || employee.employee}</Job>
+      <AvatarLink
+        to="/admin/employees/profile"
+        onClick={() => handleEmployeeSelect(employee)}
+      >
+        {name || employee.employee}
+        <Job>{name || employee.job || employee.employee}</Job>
       </AvatarLink>
     </TableAvatar>
   );
