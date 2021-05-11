@@ -1,5 +1,6 @@
 import React from 'react';
 import { Col, FormGroup, Input } from 'reactstrap';
+
 import DatePicker from '../Common/DatePicker';
 import SelectBox from '../Common/SelectBox';
 
@@ -16,7 +17,7 @@ const EmptyForm = ({ employees }) => {
       </Col>
       <Col xs={12}>
         <FormGroup>
-          <label for="exampleDate">
+          <label htmlFor="exampleDate">
             Overtime Date <span className="text-danger">*</span>
           </label>
           <DatePicker />
@@ -24,7 +25,7 @@ const EmptyForm = ({ employees }) => {
       </Col>
       <Col xs={12}>
         <FormGroup>
-          <label for="exampleDate">
+          <label htmlFor="exampleDate">
             Overtime Hours <span className="text-danger">*</span>
           </label>
           <Input type="number" />
@@ -32,7 +33,7 @@ const EmptyForm = ({ employees }) => {
       </Col>
       <Col xs={12}>
         <FormGroup>
-          <label for="description">
+          <label htmlFor="description">
             Description<span className="text-danger">*</span>
           </label>
           <Input type="textarea" name="description" />

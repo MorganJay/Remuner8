@@ -13,6 +13,7 @@ import { AppContext } from 'context/store';
 import EmployeeService from 'services/employeeService';
 
 import 'assets/css/EmployeeProfile.css';
+import ProfileForm from './ProfileForm';
 
 const EmployeeProfile = props => {
   const {
@@ -28,7 +29,7 @@ const EmployeeProfile = props => {
   const { modalOpen, modalLabel, profile } = state;
 
   const toggleModal = label =>
-    setState({ modalOpen: !modalOpen, modalLabel: label });
+    setState({ ...state, modalOpen: !modalOpen, modalLabel: label });
 
   return !profile ? (
     <div
@@ -84,7 +85,7 @@ const EmployeeProfile = props => {
         isOpen={modalOpen}
         toggle={() => toggleModal('')}
       >
-        Hello World
+        <ProfileForm />
       </CustomModal>
     </>
   );

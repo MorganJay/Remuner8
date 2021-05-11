@@ -20,8 +20,7 @@ export const AppProvider = ({ children }) => {
 
   const setUsername = payload => dispatch({ type: 'SET_USERNAME', payload });
 
-  const clickEmployee = payload =>
-    dispatch({ type: 'CLICK_EMPLOYEE', payload });
+  const clickEmployee = payload => dispatch({ type: 'CLICK_EMPLOYEE', payload });
 
   const events = { storeToken, uploadImage, setUsername, clickEmployee };
 

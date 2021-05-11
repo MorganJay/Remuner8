@@ -1,13 +1,13 @@
 import React from 'react';
 import { FormGroup } from 'reactstrap';
 
-const Select = ({ name, label, error, options, ...props }) => {
+const Select = ({ name, label, error, options, defaultValue, ...props }) => {
   return (
     <FormGroup>
       <label htmlFor={name}>{label}</label>
       <select className="form-control mb-2" id={name} name={name} {...props}>
         <option value="" className="text-muted">
-          Select Genre
+          {defaultValue}
         </option>
         {options &&
           options.map(({ _id, name }, index) => (

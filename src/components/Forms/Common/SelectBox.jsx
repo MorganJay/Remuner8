@@ -15,23 +15,19 @@ import {
   FocusLabel
 } from './SelectBox.styles';
 
-const SelectBox = ({
-  options,
-  label,
-  defaultValue,
-  ...props
-}) => {
+const SelectBox = ({ options, label, defaultValue, ...props }) => {
   const [dropdownOpen, setDropdown] = useState(false);
   const toggle = () => setDropdown(!dropdownOpen);
   const [state, setState] = useState({
     value: 0,
-    innerText: options[0],
-    outerText: options[0]
+    innerText: options && options[0],
+    outerText: options && options[0]
   });
 
-  useEffect(() => {
-    setState(state => ({ ...state, outerText: options[0] }));
-  }, [dropdownOpen, options]);
+  useEffect(() => setState(state => ({ ...state, outerText: options[0] })), [
+    dropdownOpen,
+    options
+  ]);
 
   const spanContainer = useRef(null);
 
@@ -45,11 +41,11 @@ const SelectBox = ({
     setState(state => ({ ...state, outerText }));
   };
 
-  const getWidth = () => {
-    return spanContainer.current ? spanContainer.current.clientWidth : null;
-  };
+  const getWidth = () =>
+    spanContainer.current ? spanContainer.current.clientWidth : null;
 
   const { value, innerText, outerText } = state;
+
   return (
     <>
       <Select tabIndex="-1" aria-hidden="true" {...props}>
@@ -118,11 +114,13 @@ const SelectBox = ({
           </SelectDropdown>
         </DropdownContainer>
       </SpanContainer>
-      <FocusLabel htmlFor="select-box">
-        {props.focusLabel}
-      </FocusLabel>
+      <FocusLabel htmlFor="select-box">{props.focusLabel}</FocusLabel>
     </>
   );
 };
+
+SelectBox.defaultProps = {
+  options: [""]
+}
 
 export default SelectBox;

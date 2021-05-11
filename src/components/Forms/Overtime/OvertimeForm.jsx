@@ -12,8 +12,9 @@ const OvertimeForm = ({ data, toggle }) => {
     e.preventDefault();
     toggle();
   };
+
   return (
-    <CustomForm toggleModal={toggle} handleSubmit={handleSubmit}>
+    <CustomForm onSubmit={handleSubmit}>
       {data ? (
         data.map(overtime => (
           <>

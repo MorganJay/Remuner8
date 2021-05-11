@@ -1,6 +1,5 @@
 import React from 'react';
 import { FormGroup, Input, Label, FormFeedback } from 'reactstrap';
-
 import { ErrorMessage, useField } from 'formik';
 
 export const TextField = ({ label, ...props }) => {
@@ -26,7 +25,7 @@ export const TextField = ({ label, ...props }) => {
   );
 };
 
-const FormInput = ({ autoComplete, name, label, error, ...props }) => {
+const FormInput = ({ name, label, ...props }) => {
   return (
     <FormGroup>
       <Input
@@ -34,15 +33,12 @@ const FormInput = ({ autoComplete, name, label, error, ...props }) => {
         name={name}
         placeholder={label}
         title={label}
-        autoComplete={autoComplete || 'username'}
-        className="mb-2"
-        invalid={error && error.length > 0}
+        // invalid={error && error.length > 0}
         {...props}
       />
       <Label htmlFor={name} className="label">
         {label}
       </Label>
-      {error && <FormFeedback>{error}</FormFeedback>}
     </FormGroup>
   );
 };

@@ -4,20 +4,9 @@ $breakpoint-md: 768px;
 $breakpoint-lg: 992px;
 $breakpoint-xl: 1200px;
 
-// @font-face {
-//   font-family: 'senBold';
-//   src: url(/fonts/sen_bold/sen_bold.ttf);
-//   font-style: normal;
-//   font-weight: 400;
-//   font-display: swap;
-// }
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap');
 
-// @font-face {
-//   font-family: 'senBold';
-//   src: url(/fonts/sen_bold/sen_extra_bold.ttf);
-//   font-weight: 700;
-//   font-display: swap;
-//}
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
 
 *,
 ::after,
@@ -54,7 +43,8 @@ html,
 body {
   min-height: 100%;
   width: 100%;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+  font-family: 'Montserrat', sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   overflow-x: hidden;
   @media only screen and (max-width: 767.98px) {
     font-size: 0.875rem;

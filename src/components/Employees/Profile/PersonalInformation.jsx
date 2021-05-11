@@ -22,6 +22,10 @@ const PersonalInformation = ({ employee, toggle }) => {
           <div className="title">State of Origin</div>
           <div className="text">Abia</div>
         </li>
+        <li>
+          <div className="title">Marital Status</div>
+          <div className="text">Single</div>
+        </li>
       </ul>
     </ProfileCard>
   );

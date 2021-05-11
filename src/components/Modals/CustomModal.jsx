@@ -31,7 +31,7 @@ const Header = styled(ModalHeader)`
     span {
       font-weight: 700;
       text-shadow: 0 1px 0 #fff;
-      line-height: 20px;
+      line-height: 14px !important;
       margin: 3px;
       color: inherit !important;
     }
