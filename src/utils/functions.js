@@ -1,5 +1,9 @@
 import dateFormat from 'dateformat';
 
+export const getValidDate = date => dateFormat(date, 'yyyy-mm-dd');
+
+export const setTodaysDate = (date, setDate) => setDate(getValidDate(date));
+
 export const getRandomTime = () => {
   const today = new Date();
   const backendTime = today.toLocaleTimeString('en-GB');

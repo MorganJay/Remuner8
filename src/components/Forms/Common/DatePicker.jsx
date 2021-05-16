@@ -1,26 +1,25 @@
 import React, { useState } from 'react';
 import { Input } from 'reactstrap';
-import dateFormat from 'dateformat';
+import { useField } from 'formik';
 
 import { FocusLabel } from 'components/Forms/Common/SelectBox.styles';
+import { getValidDate, setTodaysDate } from 'utils/functions';
 
-const getValidDate = date => dateFormat(date, 'yyyy-mm-dd');
-
-const DatePicker = ({ date, onChange, label, adjustLabel, ...props }) => {
+const DatePicker = ({ name, date, onChange, label, adjustLabel, ...props }) => {
   const [today, setDate] = useState();
-  const setTodaysDate = date => setDate(getValidDate(date));
 
   return (
     <>
       <Input
-        name="datepicker"
+        name={name}
         type="date"
         defaultValue={date ? getValidDate(date) : today}
         onChange={onChange}
-        onClick={() => setTodaysDate(today)}
+        onClick={() => setTodaysDate(today, setDate)}
         //style={{ height: '51px' }}
+        {...props}
       />
-      <FocusLabel htmlFor="datepicker" adjustLabel={adjustLabel}>
+      <FocusLabel htmlFor={name} adjustLabel={adjustLabel}>
         {label}
       </FocusLabel>
     </>
@@ -28,3 +27,21 @@ const DatePicker = ({ date, onChange, label, adjustLabel, ...props }) => {
 };
 
 export default DatePicker;
+
+export const FormikDatePicker = ({ label, ...props }) => {
+  const [field, meta] = useField(props);
+  const [today, setDate] = useState();
+  const errorText = meta.error && meta.touched && meta.error;
+
+  return (
+    <Input
+      type="date"
+      title={label}
+      onClick={() => setTodaysDate(today, setDate)}
+      className={meta.touched ? (meta.error ? 'is-invalid' : 'is-valid') : ''}
+      invalid={!!errorText}
+      {...field}
+      {...props}
+    />
+  );
+};

@@ -1,18 +1,33 @@
 import React from 'react';
-import { Form, Row, Button } from 'reactstrap';
+import { Row, Button } from 'reactstrap';
+import { Formik, Form } from 'formik';
 
-const CustomForm = ({ children, onSubmit }) => {
+const CustomForm = ({ children, handleSubmit, buttonText, values, schema }) => {
   return (
-    <Form onSubmit={onSubmit}>
-      <Row>
-        {Array.isArray(children) ? children.map(child => child) : children}
-      </Row>
-      <Row className="justify-content-center mt-2">
-        <Button color="primary" type="submit" style={{ minWidth: '200px' }}>
-          SAVE
-        </Button>
-      </Row>
-    </Form>
+    <Formik
+      initialValues={values}
+      validationSchema={schema}
+      onSubmit={(data, { setSubmitting }) => handleSubmit(data, setSubmitting)}
+    >
+      {({ isSubmitting }) => (
+        <Form>
+          <Row>
+            {Array.isArray(children) ? children.map(child => child) : children}
+          </Row>
+          <Row className="justify-content-center mt-2">
+            <Button color="primary" type="submit" style={{ minWidth: '200px' }}>
+              {isSubmitting ? (
+                <span>
+                  <i className="fas fa-circle-o-notch fa-spin"></i> LOADING
+                </span>
+              ) : (
+                `${buttonText || 'SAVE'}`
+              )}
+            </Button>
+          </Row>
+        </Form>
+      )}
+    </Formik>
   );
 };
 

@@ -1,109 +1,129 @@
-import React, { useContext } from 'react';
-import { Form, Row, Col, Button, FormGroup, Label } from 'reactstrap';
+import React from 'react';
+import { Row, Col, FormGroup, Label } from 'reactstrap';
+import * as Yup from 'yup';
 
+import { FormikDatePicker } from 'components/Forms/Common/DatePicker';
 import SelectBox from 'components/Forms/Common/SelectBox';
-import FormInput from '../../Forms/Common/FormInput';
-import DatePicker from './../../Forms/Common/DatePicker';
-import { AppContext } from 'context/store';
+import CustomForm from './../../Forms/Common/CustomForm';
+import FormInput, { TextField } from '../../Forms/Common/FormInput';
+import FormikSelectBox from './../../Forms/Common/FormikSelectBox';
+import CustomSelect from './../../Forms/Common/CustomSelect'
+
+import { getValidDate } from './../../../utils/functions';
 import { ProfileImageWrap } from './ProfileForm.styles';
 
-const ProfileForm = () => {
-  const {
-    state: { avatar }
-  } = useContext(AppContext);
-  
+const ProfileForm = ({ employee }) => {
+  const state = { ...employee };
 
-  const handleSubmit = () => console.log('')
+  const schema = Yup.object({
+    firstName: Yup.string().required(),
+    lastName: Yup.string().required(),
+    join_date: Yup.date().required(),
+    address: Yup.string().required(),
+    phoneNumber: Yup.string().required(),
+    // department: Yup.number().required(),
+    // jobDescriptionId: Yup.number().required()
+  });
+
+  const handleSubmit = (data, setSubmitting) => {
+    setSubmitting(true);
+    console.log(data);
+    setTimeout(() => {
+      setSubmitting(false);
+    }, 3000);
+  };
+
+  const { avatar, join_date } = state;
 
   return (
-    <Form>
-      <Row>
-        <Col md={12}>
-          <ProfileImageWrap className="profile-img-wrap">
-            <img className="inline-block" src={avatar} alt="user" />
-            <div className="fileupload btn">
-              <span className="text-white" style={{ fontSize: '15px' }}>
-                edit
-              </span>
-              <input className="upload" type="file" />
-            </div>
-          </ProfileImageWrap>
+    <CustomForm
+      handleSubmit={handleSubmit}
+      buttonText="SUBMIT"
+      values={state}
+      schema={schema}
+    >
+      <Col md={12}>
+        <ProfileImageWrap className="profile-img-wrap">
+          <img className="inline-block" src={avatar} alt="user" name="avatar" />
+          <div className="fileupload btn">
+            <span className="text-white" style={{ fontSize: '15px' }}>
+              edit
+            </span>
+            <input className="upload" type="file" />
+          </div>
+        </ProfileImageWrap>
 
-          <Row>
-            <Col md={6}>
-              <Label style={{ color: '#1f1f1f' }}>First Name</Label>
-              <FormInput defaultValue="John" name="firstName" required />
-            </Col>
-            <Col md={6}>
-              <Label style={{ color: '#1f1f1f' }}>Last Name</Label>
-              <FormInput defaultValue="Doe" name="lastName" required />
-            </Col>
-            <Col md={6}>
-              <FormGroup>
-                <Label style={{ color: '#1f1f1f' }}>Date of Birth</Label>
-                <DatePicker />
-              </FormGroup>
-            </Col>
-            <Col md={6}>
-              <FormGroup>
-                <Label style={{ color: '#1f1f1f' }}>Gender</Label>
-                <SelectBox
-                  name="gender"
-                  label="Gender"
-                  options={['Male', 'Female']}
-                  defaultValue="Select Gender"
-                  required
-                />
-              </FormGroup>
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+        <Row>
+          <Col md={6}>
+            <Label style={{ color: '#1f1f1f' }}>Employee ID</Label>
+            <TextField name="employee_id" required />
+          </Col>
+          <Col md={6}>
+            <FormGroup>
+              <Label style={{ color: '#1f1f1f' }}>Date of Join</Label>
+              {/* <DatePicker name="join_date" date={join_date} required /> */}
+              <FormikDatePicker
+                name="join_date"
+                value={getValidDate(join_date)}
+                required
+              />
+            </FormGroup>
+          </Col>
+          <Col md={6}>
+            <Label style={{ color: '#1f1f1f' }}>First Name</Label>
+            <TextField name="name" required />
+          </Col>
+          <Col md={6}>
+            <Label style={{ color: '#1f1f1f' }}>Last Name</Label>
+            <TextField name="name" required />
+          </Col>
+        </Row>
 
-      <Row>
-        <Col md={6}>
-          <Label style={{ color: '#1f1f1f' }}>Address</Label>
-          <FormInput
-            type="textarea"
-            name="address"
-            defaultValue="Ajah"
-            required
-          />
-        </Col>
-        <Col md={6}>
-          <Label style={{ color: '#1f1f1f' }}>Phone Number</Label>
-          <FormInput name="phoneNumber" defaultValue="08165336114" required />
-        </Col>
-        <Col md={6}>
-          <FormGroup>
-            <Label style={{ color: '#1f1f1f' }}>Department</Label>
-            <SelectBox
-              name="department"
-              label="Department"
-              options={['']}
-              defaultValue="Select Department"
+        <Row>
+          <Col md={6}>
+            <Label style={{ color: '#1f1f1f' }}>Phone Number</Label>
+            <TextField name="phone_number" required />
+          </Col>
+          <Col md={6}>
+            <Label style={{ color: '#1f1f1f' }}>Email Address</Label>
+            <TextField type="email" name="email" required />
+          </Col>
+          <Col md={6}>
+            <FormGroup>
+              <Label style={{ color: '#1f1f1f' }}>Department</Label>
+              <FormikSelectBox
+                name="department"
+                label="Department"
+                options={['']}
+                // required
+              />
+              <CustomSelect />
+            </FormGroup>
+          </Col>
+          <Col md={6}>
+            <FormGroup>
+              <Label style={{ color: '#1f1f1f' }}>Job Description</Label>
+              <SelectBox
+                name="jobDescription"
+                label="Job Description"
+                options={['']}
+                defaultValue="Select Job Description"
+                // required
+              />
+            </FormGroup>
+          </Col>
+          <Col md={12}>
+            <Label style={{ color: '#1f1f1f' }}>Address</Label>
+            <FormInput
+              type="textarea"
+              name="address"
+              defaultValue="Ajah"
+              required
             />
-          </FormGroup>
-        </Col>
-        <Col md={6}>
-          <FormGroup>
-            <Label style={{ color: '#1f1f1f' }}>Job Description</Label>
-            <SelectBox
-              name="jobDescription"
-              label="Job Description"
-              options={['']}
-              defaultValue="Select Job Description"
-            />
-          </FormGroup>
-        </Col>
-      </Row>
-
-      <Row className="submit-section justify-content-center">
-        <Button color="primary" type="submit" style={{ minWidth: '200px' }}>
-          SUBMIT
-        </Button>
-      </Row>
-    </Form>
+          </Col>
+        </Row>
+      </Col>
+    </CustomForm>
   );
 };
 

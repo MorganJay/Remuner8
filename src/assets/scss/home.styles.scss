@@ -6,16 +6,19 @@
   }
 
   .caption-heading {
+    font-family: 'Montserrat';
     font-size: clamp(2rem, 4vw, 4rem);
     font-weight: 700;
   }
 
   .caption-text {
     font-size: clamp(0.7rem, 4vw, 1rem);
+    font-weight: 600;
   }
 
   .btn {
     width: max-content;
+    font-family: 'Montserrat';
     height: max-content;
   }
 

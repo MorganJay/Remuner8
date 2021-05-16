@@ -24,10 +24,10 @@ const SelectBox = ({ options, label, defaultValue, ...props }) => {
     outerText: options && options[0]
   });
 
-  useEffect(() => setState(state => ({ ...state, outerText: options[0] })), [
-    dropdownOpen,
-    options
-  ]);
+  useEffect(
+    () => setState(state => ({ ...state, outerText: options[0] })),
+    [dropdownOpen, options]
+  );
 
   const spanContainer = useRef(null);
 
@@ -41,19 +41,16 @@ const SelectBox = ({ options, label, defaultValue, ...props }) => {
     setState(state => ({ ...state, outerText }));
   };
 
-  const getWidth = () =>
-    spanContainer.current ? spanContainer.current.clientWidth : null;
+  const getWidth = () => spanContainer.current?.clientWidth;
 
   const { value, innerText, outerText } = state;
 
   return (
     <>
       <Select tabIndex="-1" aria-hidden="true" {...props}>
-        {options
-          ? options.map((option, index) => (
-              <option key={index}>{option}</option>
-            ))
-          : null}
+        {options?.map((option, index) => (
+          <option key={index}>{option}</option>
+        ))}
       </Select>
       <SpanContainer
         dir="ltr"
@@ -75,10 +72,15 @@ const SelectBox = ({ options, label, defaultValue, ...props }) => {
               id="select2-kokx-container"
               role="textbox"
               aria-readonly="true"
-              value="ds"
               {...props}
             >
-              {defaultValue ? defaultValue : value ? options[value] : label}
+              {props.value
+                ? props.value
+                : defaultValue
+                ? defaultValue
+                : value
+                ? options[value]
+                : label}
             </SpanSelectRendered>
             <SpanSelectArrow role="presentation">
               <B open={dropdownOpen} role="presentation" />
@@ -94,21 +96,19 @@ const SelectBox = ({ options, label, defaultValue, ...props }) => {
             <DropdownSearch />
             <SelectResults>
               <SelectOptions>
-                {options
-                  ? options.map((option, index) => (
-                      <SelectOption
-                        key={index}
-                        ariaSelected={outerText === option}
-                        tabIndex={dropdownOpen ? 0 : undefined}
-                        onClick={event => handleChange(event)}
-                        value={index}
-                        selected={innerText === option}
-                        onMouseOver={event => handleHover(event)}
-                      >
-                        {option}
-                      </SelectOption>
-                    ))
-                  : null}
+                {options?.map((option, index) => (
+                  <SelectOption
+                    key={index}
+                    ariaSelected={outerText === option}
+                    tabIndex={dropdownOpen ? 0 : undefined}
+                    onClick={event => handleChange(event)}
+                    value={index}
+                    selected={innerText === option}
+                    onMouseOver={event => handleHover(event)}
+                  >
+                    {option}
+                  </SelectOption>
+                ))}
               </SelectOptions>
             </SelectResults>
           </SelectDropdown>
@@ -120,7 +120,7 @@ const SelectBox = ({ options, label, defaultValue, ...props }) => {
 };
 
 SelectBox.defaultProps = {
-  options: [""]
-}
+  options: ['']
+};
 
 export default SelectBox;

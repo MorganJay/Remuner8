@@ -63,7 +63,7 @@ const LoginForm = props => {
       <Formik
         initialValues={state}
         validationSchema={schema}
-        onSubmit={(data, { setSubmitting, resetForm }) =>
+        onSubmit={(data, { setSubmitting }) =>
           handleSubmit(data, setSubmitting)
         }
       >

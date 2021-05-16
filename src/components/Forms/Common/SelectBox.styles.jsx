@@ -39,6 +39,7 @@ export const SpanContainer = styled.span`
   margin: 0;
   position: relative;
   vertical-align: middle;
+  color: #1f1f1f;
 
   &:focus {
     outline: 1px auto rgba(94, 114, 228, 0.5);
@@ -65,7 +66,6 @@ export const SpanSelectRendered = styled.span`
   display: block;
   padding-right: 30px;
   padding-left: 15px;
-  color: #676767;
   font-size: 15px;
   font-weight: normal;
   user-select: none;
@@ -171,7 +171,6 @@ export const SelectOption = styled.li`
 `;
 
 export const FocusLabel = styled.label`
-  color: #1f1f1f;
   transform: translate3d(0, 22px, 0) scale(1);
   transform-origin: left top;
   transition: 240ms;

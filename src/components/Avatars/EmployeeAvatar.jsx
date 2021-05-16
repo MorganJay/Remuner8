@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import DummyImage from 'assets/img/theme/team-1-800x800.jpg';
-import { saveEmployee } from './../../services/employeeService';
+import { saveEmployeeProfile } from './../../services/employeeService';
 import { AppContext } from 'context/store';
 
 const EmployeeAvatar = ({ employee }) => {
@@ -18,7 +18,7 @@ const EmployeeAvatar = ({ employee }) => {
 
   const handleEmployeeSelect = employee => {
     clickEmployee(employee);
-    saveEmployee(employee);
+    saveEmployeeProfile(employee);
   };
 
   return (

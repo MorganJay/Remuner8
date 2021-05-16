@@ -2,18 +2,21 @@ import React, { useState, useContext } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Row, Col } from 'reactstrap';
 
-import CustomModal from './../../Modals/CustomModal';
+import CustomModal from 'components/Modals/CustomModal';
 import CustomButton from 'components/Custom-Buttons/Button';
 import PageHeader from 'components/Headers/PageHeader';
+
 import Header from './Header';
 import PersonalInformation from './PersonalInformation';
 import BankInformation from './BankInformation';
+import ProfileForm from './ProfileForm';
+import PersonalForm from './PersonalForm';
+import BankForm from './BankForm';
 
 import { AppContext } from 'context/store';
-import EmployeeService from 'services/employeeService';
+import employeeService from 'services/employeeService';
 
 import 'assets/css/EmployeeProfile.css';
-import ProfileForm from './ProfileForm';
 
 const EmployeeProfile = props => {
   const {
@@ -23,7 +26,7 @@ const EmployeeProfile = props => {
   const [state, setState] = useState({
     modalOpen: false,
     modalLabel: '',
-    profile: employee || EmployeeService.currentEmployee
+    profile: employee || employeeService.currentEmployee
   });
 
   const { modalOpen, modalLabel, profile } = state;
@@ -85,7 +88,13 @@ const EmployeeProfile = props => {
         isOpen={modalOpen}
         toggle={() => toggleModal('')}
       >
-        <ProfileForm />
+        {modalLabel === 'Profile Information' ? (
+          <ProfileForm employee={profile} />
+        ) : modalLabel === 'Personal Information' ? (
+          <PersonalForm employee={profile} />
+        ) : (
+          <BankForm employee={profile} />
+        )}
       </CustomModal>
     </>
   );

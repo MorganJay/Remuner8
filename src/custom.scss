@@ -21,6 +21,15 @@ $breakpoint-xl: 1200px;
   background: royalblue;
 }
 
+// :focus-visible {
+//   outline: 4px dashed black;
+// }
+
+// :focus:not(:focus-visible) {
+//   outline: none;
+//   box-shadow: 1px 1px 5px rgba(1, 1, 0, 0.7);
+// }
+
 a {
   color: #0366d6;
   text-decoration: none;
@@ -43,9 +52,9 @@ html,
 body {
   min-height: 100%;
   width: 100%;
-  font-family: 'Montserrat', sans-serif;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
   overflow-x: hidden;
+  color: #1f1f1f;
   @media only screen and (max-width: 767.98px) {
     font-size: 0.875rem;
   }
