@@ -9,7 +9,8 @@ import PasswordInput from './PasswordInput';
 class FormComponent extends Component {
   state = { data: {}, errors: {} };
 
-  passwordPattern = "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-`~()_=+{}|'.<>;:,/]).{8,33}$";
+  passwordPattern =
+    "^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-`~()_=+{}|'.<>;:,/]).{8,33}$";
 
   validateProperty = ({ name, value }) => {
     const obj = { [name]: value };

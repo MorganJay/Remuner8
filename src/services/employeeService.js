@@ -39,9 +39,4 @@ export function deleteEmployee(employeeId) {
   return http.delete(employeeUrl(employeeId));
 }
 
-export default {
-  saveEmployee: saveEmployeeProfile,
-  getCurrentEmployee,
-  currentEmployee
-};
-
+export default { saveEmployeeProfile, getCurrentEmployee, currentEmployee };

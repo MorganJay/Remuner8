@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { AvatarLink } from 'components/Avatars/EmployeeAvatar';
 import ActionToggle from 'components/Custom-Buttons/ActionToggle';
 import { AppContext } from 'context/store';
-import { saveEmployee } from 'services/employeeService';
+import { saveEmployeeProfile } from 'services/employeeService';
 
 const Card = ({ imgSrc, employee, toggleEditModal, toggleDeleteModal }) => {
   const {
@@ -16,7 +16,7 @@ const Card = ({ imgSrc, employee, toggleEditModal, toggleDeleteModal }) => {
 
   const handleEmployeeSelect = employee => {
     clickEmployee(employee);
-    saveEmployee(employee);
+    saveEmployeeProfile(employee);
   };
 
   return (

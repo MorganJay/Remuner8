@@ -25,7 +25,8 @@ const RegistrationForm = () => {
   const schema = Yup.object({
     userName: Yup.string()
       .required('A unique username is required')
-      .label('Username'),
+      .label('Username')
+      .matches(new RegExp('^.[A-Za-z0-9]{2,}$'), 'Username must be at least 3 characters long with only alphanumeric characters'),
     email: Yup.string()
       .required('Email Address is required')
       .email('Invalid Email Address'),
@@ -75,14 +76,23 @@ const RegistrationForm = () => {
       >
         {({ isSubmitting }) => (
           <Form className="registration">
-            <TextField label="Username" name="userName" required />
+            <TextField
+              label="Username"
+              name="userName"
+              autoComplete="off"
+              required
+            />
             <TextField
               label="Email Address"
               name="email"
               type="email"
               required
             />
-            <PasswordInput label="Password" name="password" />
+            <PasswordInput
+              label="Password"
+              name="password"
+              autoComplete="off"
+            />
             <PasswordInput label="Confirm Password" name="confirmPassword" />
             <Button
               type="submit"

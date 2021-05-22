@@ -26,14 +26,11 @@ class Employees extends Component {
     deleteModalOpen: false
   };
 
-  toggleAddModal = () =>
-    this.setState({ addModalOpen: !this.state.addModalOpen });
+  toggleAddModal = () => this.setState({ addModalOpen: !this.state.addModalOpen });
 
-  toggleEditModal = () =>
-    this.setState({ editModalOpen: !this.state.editModalOpen });
+  toggleEditModal = () => this.setState({ editModalOpen: !this.state.editModalOpen });
 
-  toggleDeleteModal = () =>
-    this.setState({ deleteModalOpen: !this.state.deleteModalOpen });
+  toggleDeleteModal = () => this.setState({ deleteModalOpen: !this.state.deleteModalOpen });
 
   handleEdit = object =>
     this.setState({
