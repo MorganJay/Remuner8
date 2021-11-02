@@ -1,20 +1,19 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import React, { useContext, useState } from "react";
+import { Link } from "react-router-dom";
+import styled from "styled-components";
 
-import DummyImage from 'assets/img/theme/team-1-800x800.jpg';
-import { saveEmployeeProfile } from './../../services/employeeService';
-import { AppContext } from 'context/store';
+import DummyImage from "assets/img/theme/team-1-800x800.jpg";
+import { saveEmployeeProfile } from "./../../services/employeeService";
+import { AppContext } from "context/store";
 
 const EmployeeAvatar = ({ employee }) => {
   const {
-    events: { clickEmployee }
+    events: { clickEmployee },
   } = useContext(AppContext);
+  const [imageError, setImageError] = useState(false);
 
   if (!employee) return null;
-
   const { name, avatar } = employee;
-
 
   const handleEmployeeSelect = employee => {
     clickEmployee(employee);
@@ -27,7 +26,10 @@ const EmployeeAvatar = ({ employee }) => {
         to="/admin/employees/profile"
         onClick={() => handleEmployeeSelect(employee)}
       >
-        <Image src={avatar} />
+        <Image
+          src={imageError ? DummyImage : avatar || DummyImage}
+          onError={() => setImageError(true)}
+        />
       </Avatar>
       <AvatarLink
         to="/admin/employees/profile"
@@ -41,8 +43,8 @@ const EmployeeAvatar = ({ employee }) => {
 };
 
 EmployeeAvatar.defaultProps = {
-  name: 'John Doe',
-  avatar: DummyImage
+  name: "John Doe",
+  avatar: DummyImage,
 };
 
 export default EmployeeAvatar;

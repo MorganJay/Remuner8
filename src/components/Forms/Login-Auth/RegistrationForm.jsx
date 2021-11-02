@@ -8,8 +8,8 @@ import { TextField } from '../../Forms/Common/FormInput';
 import PasswordInput from '../Common/PasswordInput';
 
 import modal from '../../../services/modalService';
-import user from '../../../services/userService';
-import auth from '../../../services/authService';
+// import user from '../../../services/userService';
+// import auth from '../../../services/authService';
 import http from '../../../services/httpService';
 
 import 'assets/scss/forms.styles.scss';
@@ -41,11 +41,12 @@ const RegistrationForm = () => {
   const handleSubmit = async (data, setSubmitting, resetForm) => {
     try {
       setSubmitting(true);
-      const {
-        data: { token, message, userName }
-      } = await user.register(data);
-      auth.loginWithJwt(token, userName);
-      modal.success(message);
+      // const {
+      //   data: { token, message, userName }
+      // } = await user.register(data);
+      // auth.loginWithJwt(token, userName);
+      // modal.success(message);
+      modal.success('Enjoy!');
       setSubmitting(false);
       resetForm();
       setTimeout(() => (window.location = '/admin'), 300);

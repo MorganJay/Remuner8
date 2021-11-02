@@ -1,13 +1,19 @@
-import React, { useState} from 'react';
-import { Link, withRouter } from 'react-router-dom';
-import { Button, Form, FormGroup, Input } from 'reactstrap';
+import React, { useState } from "react";
+import { Link, withRouter } from "react-router-dom";
+import { Button, Form, FormGroup, Input } from "reactstrap";
+import modalService from "services/modalService";
 
-const ResetPassword = () => {
+const ResetPassword = ({ history }) => {
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = e => {
     e.preventDefault();
     setLoading(!loading);
+
+    setTimeout(() => {
+      modalService.success();
+      setTimeout(() => history.replace("/login", 2000));
+    }, 1230);
   };
 
   return (
@@ -18,7 +24,14 @@ const ResetPassword = () => {
       </h4>
       <Form onSubmit={handleSubmit}>
         <FormGroup>
-          <Input id="email" name="email" type="email" autoComplete="username" autoFocus required />
+          <Input
+            id="email"
+            name="email"
+            type="email"
+            autoComplete="username"
+            autoFocus
+            required
+          />
         </FormGroup>
 
         <FormGroup>
@@ -28,7 +41,7 @@ const ResetPassword = () => {
                 <i className="fas fa-circle-o-notch fa-spin"></i> LOADING
               </span>
             ) : (
-              'RESET PASSWORD'
+              "RESET PASSWORD"
             )}
           </Button>
         </FormGroup>

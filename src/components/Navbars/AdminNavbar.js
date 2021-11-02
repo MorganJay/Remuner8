@@ -18,8 +18,6 @@ import AdminImage from '../../assets/img/theme/adminImage.jfif';
 
 const AdminNavbar = props => {
   // const appContext = useContext(AppContext);
-  const { userName } = auth.currentUser;
-
   return (
     <Navbar className="navbar-top navbar-dark" expand="md" id="navbar-main">
       <Container
@@ -38,7 +36,7 @@ const AdminNavbar = props => {
                 </span>
                 <Media className="ml-2 d-none d-lg-block">
                   <span className="mb-0 text-sm font-weight-bold">
-                    {userName || 'Admin'}
+                    {auth?.currentUser?.userName || 'Admin'}
                   </span>
                 </Media>
               </Media>

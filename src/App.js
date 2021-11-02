@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Switch, Redirect } from 'react-router';
 
-import ProtectedRoute from './components/Routes/ProtectedRoute';
+// import ProtectedRoute from './components/Routes/ProtectedRoute';
 import Home from './pages/Homepage/Home';
 import LoginPage from './pages/Login-Auth/Login';
 import RegistrationPage from './pages/Login-Auth/Register';
@@ -28,7 +28,8 @@ function App() {
         <Route exact path="/logout" component={LogOut} />
         <Route exact path="/register" component={RegistrationPage} />
         <Route exact path="/resetPassword" component={ResetPasswordPage} />
-        <ProtectedRoute path="/admin" component={Dashboard} />
+        <Route path="/admin" component={Dashboard} />
+        {/* <ProtectedRoute path="/admin" component={Dashboard} /> */}
         <Route path="/not-found" component={Custom404} />
         <Redirect to="/not-found" />
       </Switch>

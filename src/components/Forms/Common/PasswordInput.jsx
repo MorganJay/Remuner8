@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import { FormGroup, FormFeedback, Input, Label } from 'reactstrap';
-import { useField, ErrorMessage } from 'formik';
+import React, { useState } from "react";
+import { FormGroup, FormFeedback, Input, Label } from "reactstrap";
+import { useField, ErrorMessage } from "formik";
 
 const PasswordInput = ({ label, error, ...props }) => {
   const [showPassword, setShowPassword] = useState(false);
@@ -14,19 +14,22 @@ const PasswordInput = ({ label, error, ...props }) => {
         onClick={() => setShowPassword(!showPassword)}
         aria-label={
           showPassword
-            ? 'Hide password.'
-            : 'Show password as plain text. Warning: this will display your password on the screen.'
+            ? "Hide password."
+            : "Show password as plain text. Warning: this will display your password on the screen."
         }
       >
-        {showPassword ? 'Hide' : 'Show'} password
+        {showPassword ? "Hide" : "Show"} password
       </button>
       <Input
-        type={showPassword ? 'text' : 'password'}
-        title={label}
+        type={showPassword ? "text" : "password"}
+        title={
+          label +
+          " must be 8 - 32 characters long, with at least one lowercase and uppercase letter, a number and special character"
+        }
         autoComplete="current-password"
         placeholder={label}
         pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-`~()_=+{}\|'.<>;:,/]).{8,33}$"
-        className={meta.touched ? (meta.error ? 'is-invalid' : 'is-valid') : ''}
+        className={meta.touched ? (meta.error ? "is-invalid" : "is-valid") : ""}
         required
         {...props}
         {...field}
@@ -39,7 +42,7 @@ const PasswordInput = ({ label, error, ...props }) => {
         <>
           <FormFeedback
             id="password-constraints"
-            className={error ? 'text-red' : null}
+            className={error ? "text-red" : null}
           >
             Must be 8 - 32 characters long, with at least one lowercase and
             uppercase letter, a number and special character
