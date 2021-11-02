@@ -6,7 +6,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://Morganjay@bitbucket.org/Morganjay/remuner8-clientside.git"
+    "url": "git+https://github.com/MorganJay/Remuner8.git"
   },
   "keywords": [
     "react",
